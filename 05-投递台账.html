@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · 投递台账 · 求职驾驶舱</title>
+<meta name="description" content="尹胜 · 测试开发工程师社招面试准备材料">
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1d2638; --line:#2a3550; --line2:#232d44;
+  --txt:#e8edf7; --sub:#93a1bd; --dim:#5b6a8a;
+  --gold:#e8b04b; --green:#4ec98a; --blue:#5b9cf5; --red:#e05d5d; --teal:#45c4b0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:"Cascadia Code",Consolas,"Courier New",monospace}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  background:rgba(23,30,46,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:11px 22px;flex-wrap:wrap}
+.topbar .back{font-size:13.5px;font-weight:600;background:var(--panel2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:8px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--gold);text-decoration:none}
+.topbar .crumb{flex:1;font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:120px}
+.topbar .raw{font-size:12.5px;color:var(--dim);border:1px solid var(--line);padding:4px 11px;border-radius:8px;white-space:nowrap}
+.topbar .raw:hover{color:var(--gold);border-color:var(--gold);text-decoration:none}
+
+.shell{max-width:1220px;margin:0 auto;padding:22px 22px 70px;display:grid;
+  grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:940px){.shell{grid-template-columns:1fr;gap:14px;padding:14px 13px 50px}}
+
+.toc{position:sticky;top:74px;max-height:calc(100vh - 96px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.toc-title{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:9px;font-weight:700}
+.toc ul{list-style:none;padding-left:0}
+.toc li{margin:1px 0}
+.toc a{color:var(--sub);display:block;padding:3px 0;line-height:1.5;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{color:var(--gold);text-decoration:none}
+.toc ul ul{padding-left:10px}
+.toc ul ul a{font-size:12.3px;color:var(--dim)}
+@media(max-width:940px){.toc{position:static;max-height:none;border-radius:10px}
+  .toc ul{max-height:230px;overflow:auto}}
+
+.content{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:30px 36px 40px;min-width:0;overflow-wrap:break-word}
+@media(max-width:940px){.content{padding:20px 17px 30px;font-size:14.5px}}
+.content>*:first-child{margin-top:0}
+.content h1{font-size:25px;color:var(--gold);padding-bottom:12px;border-bottom:2px solid var(--line);
+  margin:6px 0 20px;line-height:1.4}
+.content h2{font-size:19.5px;margin:34px 0 13px;padding-left:12px;border-left:4px solid var(--gold);line-height:1.45}
+.content h3{font-size:16.5px;margin:24px 0 9px;color:var(--blue)}
+.content h4{font-size:15px;margin:18px 0 7px;color:var(--teal)}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0 10px 4px;padding-left:22px}
+.content li{margin:5px 0}
+.content strong{color:#fff;font-weight:700}
+.content em{color:var(--gold);font-style:normal}
+.content hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.content blockquote{margin:14px 0;padding:10px 17px;background:rgba(232,176,75,.06);
+  border-left:3px solid var(--gold);border-radius:0 8px 8px 0;color:var(--sub)}
+.content blockquote p{margin:5px 0}
+
+.content code:not(.codehilite code){background:var(--panel2);color:var(--gold);
+  padding:1.5px 6px;border-radius:5px;font-size:13.2px;border:1px solid var(--line)}
+
+.codehilite{background:#12172a;border:1px solid var(--line);border-radius:10px;
+  margin:14px 0;overflow:auto;font-size:13.2px;line-height:1.65}
+.codehilite pre{margin:0;padding:14px 17px;background:transparent!important}
+.content pre:not(.codehilite pre){background:#12172a;border:1px solid var(--line);border-radius:10px;
+  padding:14px 17px;overflow:auto;font-size:13.2px;margin:14px 0}
+
+.content table{border-collapse:collapse;margin:15px 0;font-size:13.6px;width:100%}
+.content thead th{background:var(--panel2);color:var(--txt);font-weight:700;text-align:left;
+  padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+.content tbody td{padding:8px 12px;border:1px solid var(--line2);vertical-align:top}
+.content tbody tr:nth-child(even){background:rgba(255,255,255,.017)}
+.content tbody tr:hover{background:rgba(232,176,75,.05)}
+.tblwrap{overflow-x:auto;margin:15px 0}
+
+.foot{max-width:1220px;margin:0 auto;padding:0 22px 40px;color:var(--dim);font-size:12.3px;text-align:center}
+@media(max-width:940px){.foot{padding:0 13px 30px}}
+
+/* pygments */
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #F8F8F2 }
+.codehilite .c { color: #959077 } /* Comment */
+.codehilite .err { color: #ED007E; background-color: #1E0010 } /* Error */
+.codehilite .esc { color: #F8F8F2 } /* Escape */
+.codehilite .g { color: #F8F8F2 } /* Generic */
+.codehilite .k { color: #66D9EF } /* Keyword */
+.codehilite .l { color: #AE81FF } /* Literal */
+.codehilite .n { color: #F8F8F2 } /* Name */
+.codehilite .o { color: #FF4689 } /* Operator */
+.codehilite .x { color: #F8F8F2 } /* Other */
+.codehilite .p { color: #F8F8F2 } /* Punctuation */
+.codehilite .ch { color: #959077 } /* Comment.Hashbang */
+.codehilite .cm { color: #959077 } /* Comment.Multiline */
+.codehilite .cp { color: #959077 } /* Comment.Preproc */
+.codehilite .cpf { color: #959077 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #959077 } /* Comment.Single */
+.codehilite .cs { color: #959077 } /* Comment.Special */
+.codehilite .gd { color: #FF4689 } /* Generic.Deleted */
+.codehilite .ge { color: #F8F8F2; font-style: italic } /* Generic.Emph */
+.codehilite .ges { color: #F8F8F2; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #FF4689 } /* Generic.Error */
+.codehilite .gh { color: #F8F8F2 } /* Generic.Heading */
+.codehilite .gi { color: #A6E22E } /* Generic.Inserted */
+.codehilite .go { color: #66D9EF } /* Generic.Output */
+.codehilite .gp { color: #FF4689; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #F8F8F2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #959077 } /* Generic.Subheading */
+.codehilite .gt { color: #66D9EF } /* Generic.Traceback */
+.codehilite .kc { color: #66D9EF } /* Keyword.Constant */
+.codehilite .kd { color: #66D9EF } /* Keyword.Declaration */
+.codehilite .kn { color: #FF4689 } /* Keyword.Namespace */
+.codehilite .kp { color: #66D9EF } /* Keyword.Pseudo */
+.codehilite .kr { color: #66D9EF } /* Keyword.Reserved */
+.codehilite .kt { color: #66D9EF } /* Keyword.Type */
+.codehilite .ld { color: #E6DB74 } /* Literal.Date */
+.codehilite .m { color: #AE81FF } /* Literal.Number */
+.codehilite .s { color: #E6DB74 } /* Literal.String */
+.codehilite .na { color: #A6E22E } /* Name.Attribute */
+.codehilite .nb { color: #A6E22E } /* Name.Builtin */
+.codehilite .nc { color: #A6E22E } /* Name.Class */
+.codehilite .no { color: #66D9EF } /* Name.Constant */
+.codehilite .nd { color: #A6E22E } /* Name.Decorator */
+.codehilite .ni { color: #F8F8F2 } /* Name.Entity */
+.codehilite .ne { color: #A6E22E } /* Name.Exception */
+.codehilite .nf { color: #A6E22E } /* Name.Function */
+.codehilite .nl { color: #F8F8F2 } /* Name.Label */
+.codehilite .nn { color: #F8F8F2 } /* Name.Namespace */
+.codehilite .nx { color: #A6E22E } /* Name.Other */
+.codehilite .py { color: #F8F8F2 } /* Name.Property */
+.codehilite .nt { color: #FF4689 } /* Name.Tag */
+.codehilite .nv { color: #F8F8F2 } /* Name.Variable */
+.codehilite .ow { color: #FF4689 } /* Operator.Word */
+.codehilite .pm { color: #F8F8F2 } /* Punctuation.Marker */
+.codehilite .w { color: #F8F8F2 } /* Text.Whitespace */
+.codehilite .mb { color: #AE81FF } /* Literal.Number.Bin */
+.codehilite .mf { color: #AE81FF } /* Literal.Number.Float */
+.codehilite .mh { color: #AE81FF } /* Literal.Number.Hex */
+.codehilite .mi { color: #AE81FF } /* Literal.Number.Integer */
+.codehilite .mo { color: #AE81FF } /* Literal.Number.Oct */
+.codehilite .sa { color: #E6DB74 } /* Literal.String.Affix */
+.codehilite .sb { color: #E6DB74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #E6DB74 } /* Literal.String.Char */
+.codehilite .dl { color: #E6DB74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #E6DB74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #E6DB74 } /* Literal.String.Double */
+.codehilite .se { color: #AE81FF } /* Literal.String.Escape */
+.codehilite .sh { color: #E6DB74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #E6DB74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #E6DB74 } /* Literal.String.Other */
+.codehilite .sr { color: #E6DB74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #E6DB74 } /* Literal.String.Single */
+.codehilite .ss { color: #E6DB74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #A6E22E } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #A6E22E } /* Name.Function.Magic */
+.codehilite .vc { color: #F8F8F2 } /* Name.Variable.Class */
+.codehilite .vg { color: #F8F8F2 } /* Name.Variable.Global */
+.codehilite .vi { color: #F8F8F2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #F8F8F2 } /* Name.Variable.Magic */
+.codehilite .il { color: #AE81FF } /* Literal.Number.Integer.Long */</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="index.html">← 驾驶舱</a>
+  <span class="crumb">05 · 投递台账</span>
+  <a class="raw" href="05-投递台账.md">原始 Markdown</a>
+</header>
+<div class="shell">
+  <aside class="toc"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#05-投递台账">05 · 投递台账</a><ul>
+<li><a href="#使用说明">使用说明</a></li>
+<li><a href="#一-投递状态看板-手动维护">一、投递状态看板（手动维护）</a></li>
+<li><a href="#二-深圳目标公司池-重点">二、深圳目标公司池（重点）</a><ul>
+<li><a href="#第一梯队-金融科技乙方-业务最对口-p0">第一梯队 · 金融科技乙方（业务最对口，P0）</a></li>
+<li><a href="#第二梯队-甲方金融科技-p1">第二梯队 · 甲方金融科技（P1）</a></li>
+<li><a href="#第三梯队-中大型互联网-软件-自动化平台方向-p2">第三梯队 · 中大型互联网/软件（自动化平台方向，P2）</a></li>
+</ul>
+</li>
+<li><a href="#三-投递记录表-模板-示例">三、投递记录表（模板 + 示例）</a></li>
+<li><a href="#四-每日投递节奏表-对齐-13-天计划">四、每日投递节奏表（对齐 13 天计划）</a></li>
+<li><a href="#五-打招呼话术模板-boss-直聘开场白">五、打招呼话术模板（BOSS 直聘开场白）</a></li>
+<li><a href="#六-跟进话术">六、跟进话术</a><ul>
+<li><a href="#1-已读不回-第-3-天追一句">1）已读不回 · 第 3 天追一句</a></li>
+<li><a href="#2-面试后感谢语-24-小时内发">2）面试后感谢语（24 小时内发）</a></li>
+<li><a href="#3-offer-谈判期跟进-沉默-3-5-天时">3）offer 谈判期跟进（沉默 3–5 天时）</a></li>
+<li><a href="#4-沉默-7-天重投话术-换渠道-换-jd">4）沉默 7 天重投话术（换渠道/换 JD）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+  <main class="content"><h1 id="05-投递台账">05 · 投递台账</h1>
+<blockquote>
+<p>本文件是尹胜深圳求职的"弹药库 + 仪表盘"。每次投递、每次跟进都请如实登记，13 天集中轰炸期内每天花 5 分钟更新，比海投后焦虑地猜"石沉大海了吗"更有用。</p>
+</blockquote>
+<hr />
+<h2 id="使用说明">使用说明</h2>
+<ol>
+<li><strong>登记节奏</strong>：每天投递结束后 5 分钟内登记本日新增投递；出现状态变化（已读 / 约面 / 已面 / 二面 / offer / 挂 / 沉默）随时更新。</li>
+<li><strong>状态机（唯一口径，请用下拉或统一写法）</strong>：
+   <code>待投 → 已投 → 已读 → 约面 → 已面 → 二面 → offer / 挂 / 沉默7天</code>
+   - <strong>已读</strong>：HR/招聘方打开过简历或已读消息。
+   - <strong>沉默7天</strong>：已投/已读后连续 7 天无任何互动，标记为"沉默7天"，批量重投或换渠道。</li>
+<li><strong>看板与记录的关系</strong>：看板（第二部分）是手动汇总，由"三、投递记录表"的实时数据每周一、周四手动统计一次。</li>
+<li><strong>优先级标记</strong>：在记录表用 <code>P0/P1/P2</code> 标注投递优先级，P0 为第一梯队金融科技乙方，P1 为甲方金融科技，P2 为互联网/软件自动化方向。</li>
+</ol>
+<hr />
+<h2 id="一-投递状态看板-手动维护">一、投递状态看板（手动维护）</h2>
+<blockquote>
+<p>每周一、周四从"三、投递记录表"统计一次，复制下表更新数字。转化率 = 下游状态数 / 上游状态数。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>数量</th>
+<th>较上次</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>待投</td>
+<td>0</td>
+<td>—</td>
+<td>池内剩余未投</td>
+</tr>
+<tr>
+<td>已投</td>
+<td>0</td>
+<td>—</td>
+<td>已发出简历/打招呼</td>
+</tr>
+<tr>
+<td>已读</td>
+<td>0</td>
+<td>—</td>
+<td>被查看/已读</td>
+</tr>
+<tr>
+<td>约面</td>
+<td>0</td>
+<td>—</td>
+<td>进入面试邀约</td>
+</tr>
+<tr>
+<td>已面</td>
+<td>0</td>
+<td>—</td>
+<td>完成一面</td>
+</tr>
+<tr>
+<td>二面</td>
+<td>0</td>
+<td>—</td>
+<td>进入二面及以上</td>
+</tr>
+<tr>
+<td>offer</td>
+<td>0</td>
+<td>—</td>
+<td>收到录用意向</td>
+</tr>
+<tr>
+<td>挂</td>
+<td>0</td>
+<td>—</td>
+<td>明确未通过</td>
+</tr>
+<tr>
+<td>沉默7天</td>
+<td>0</td>
+<td>—</td>
+<td>需重投/换渠道</td>
+</tr>
+<tr>
+<td><strong>合计（已投）</strong></td>
+<td><strong>0</strong></td>
+<td>—</td>
+<td>总投递量</td>
+</tr>
+<tr>
+<td><strong>面试转化率</strong></td>
+<td><strong>0%</strong></td>
+<td>—</td>
+<td>约面数 / 已投数</td>
+</tr>
+<tr>
+<td><strong>offer转化率</strong></td>
+<td><strong>0%</strong></td>
+<td>—</td>
+<td>offer数 / 已投数</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>目标基线（13 天计划参考）</strong>：首轮累计投递 130–180 家；约面率目标 ≥ 12%；offer 目标 ≥ 3 个再择优。</p>
+<hr />
+<h2 id="二-深圳目标公司池-重点">二、深圳目标公司池（重点）</h2>
+<blockquote>
+<p>⚠️ <strong>以上公司池基于 2026 年市场情况整理，投递前请在招聘平台（BOSS直聘/猎聘/官网）核实最新岗位、办公地点与在招状态，部分乙方在深圳以"分公司/交付中心/驻场"形式存在。</strong></p>
+</blockquote>
+<h3 id="第一梯队-金融科技乙方-业务最对口-p0">第一梯队 · 金融科技乙方（业务最对口，P0）</h3>
+<blockquote>
+<p>对口逻辑：你做的"保险资金结算 + 银企直联 + 40+ 银行渠道对接"几乎是这些厂商的核心业务线。简历关键词直接命中，转化率高，优先打满。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务方向</th>
+<th>对口点（为什么适合你）</th>
+<th>期望薪资匹配度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>恒生电子（深圳分支/华南交付）</strong></td>
+<td>金融机构核心系统、资金/资管系统</td>
+<td>资金管理与结算是恒生强线，银企直联/报文处理经验高度复用</td>
+<td>★★★★★（高）</td>
+</tr>
+<tr>
+<td><strong>长亮科技（深圳总部）</strong></td>
+<td>银行核心、互联网金融、数据平台</td>
+<td>总行级核心系统测试需求大，金融报文/支付清算对口</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td><strong>神州信息（深圳）</strong></td>
+<td>银行 IT 解决方案、分布式核心</td>
+<td>银行渠道对接、支付类项目多，渠道测试经验稀缺</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>中电金信（深圳）</strong></td>
+<td>银行数字化转型、信创核心</td>
+<td>国有大行外包/共建项目，资金结算类需求持续</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>宇信科技（深圳）</strong></td>
+<td>银行信贷/渠道/数据产品线</td>
+<td>信贷+支付+渠道，你的银企直联可直接迁移</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>科蓝软件（深圳）</strong></td>
+<td>银行互联网渠道、移动金融</td>
+<td>渠道端（网银/手机银行/直联）测试与你的 40+ 渠道经验强相关</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>金证股份（深圳总部）</strong></td>
+<td>证券/基金核心、资管系统</td>
+<td>资金结算、资管估值对账，保险资金亦可迁移</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>顶点软件（深圳）</strong></td>
+<td>证券/资管交易系统</td>
+<td>交易+资金清算，技术栈偏 Java，白盒定位能力可用</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>赢时胜（深圳总部）</strong></td>
+<td>资管估值、资金清算、TA 系统</td>
+<td>资金清算/估值对账正是你的主线，业务理解是稀缺资产</td>
+<td>★★★★★</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>第一梯队投递优先级</strong>：赢时胜、恒生、长亮 → 金证、顶点 → 神州信息、中电金信、宇信、科蓝。建议每家公司同时投"测试工程师"与"测试开发工程师"两个 JD，并主动在 BOSS 上找对应事业部 HR。</p>
+<hr />
+<h3 id="第二梯队-甲方金融科技-p1">第二梯队 · 甲方金融科技（P1）</h3>
+<blockquote>
+<p>对口逻辑：甲方更看重"懂业务 + 能写工具提效"。你自研 FastAPI/Vue3 工具、自动化把报文比对从 2 人天压到 0.5 人天，正好是甲方降本增效欢迎的画像。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务方向</th>
+<th>对口点</th>
+<th>期望薪资匹配度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>招商银行（总行/信用卡/招银网络科技）</strong></td>
+<td>银行核心、零售、金融科技子公司</td>
+<td>资金结算/支付清分场景丰富，测开岗多</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>平安科技 / 平安壹账通 / 金融壹账通（深圳）</strong></td>
+<td>集团金融科技输出</td>
+<td>保险资金背景 + 平安系保险基因，强匹配</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td><strong>招银网络科技（深圳）</strong></td>
+<td>招行自有 IT、研发测试中心</td>
+<td>稳定、测开体系成熟，15–20k 区间友好</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>微众银行（深圳）</strong></td>
+<td>互联网银行、分布式核心</td>
+<td>自动化测试平台需求大，技术氛围好</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>国信证券 / 招商证券 IT（深圳）</strong></td>
+<td>证券核心、交易、清算</td>
+<td>资金清算/对账测试经验可迁移</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>顺丰金融科技</strong></td>
+<td>供应链金融、支付</td>
+<td>金融+科技交叉，渠道对接有空间</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td><strong>众安保险科技（深圳团队）</strong></td>
+<td>互联网保险、保险资金/理赔</td>
+<td>保险背景直接对口，你的保险资金结算经验稀缺</td>
+<td>★★★★★</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>第二梯队投递优先级</strong>：平安系、众安 → 招银网络、微众 → 招商银行、国信/招商证券 → 顺丰金科。甲方岗位 JD 常写"有金融业务背景优先"，务必在打招呼话术中第一行点明"4 年保险资金结算+银企直联"。</p>
+<hr />
+<h3 id="第三梯队-中大型互联网-软件-自动化平台方向-p2">第三梯队 · 中大型互联网/软件（自动化平台方向，P2）</h3>
+<blockquote>
+<p>对口逻辑：这梯队看"测试开发硬实力 + 平台化思维"。弱化了金融业务，强化自动化框架、工具链、全栈自研能力。作为保底与冲刺并存。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务方向</th>
+<th>对口点</th>
+<th>期望薪资匹配度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>腾讯（深圳）测试岗</strong></td>
+<td>多业务线 QA / 测试开发</td>
+<td>冲刺目标，履历+工具链包装后投</td>
+<td>★★★☆☆（冲刺）</td>
+</tr>
+<tr>
+<td><strong>字节跳动（深圳）</strong></td>
+<td>测开、质量工程</td>
+<td>冲刺，看重自动化与工程能力</td>
+<td>★★★☆☆（冲刺）</td>
+</tr>
+<tr>
+<td><strong>OPPO / vivo / 荣耀（深圳）</strong></td>
+<td>终端/ IoT 测试开发</td>
+<td>自动化平台、持续集成需求大</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>大疆（深圳）</strong></td>
+<td>硬件+软件质量、自动化</td>
+<td>测试开发体系成熟，薪资友好</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>TCL（深圳/惠州）</strong></td>
+<td>智能终端、软件测试</td>
+<td>测开岗位多，稳定</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td><strong>中兴通讯（深圳）</strong></td>
+<td>通信设备、云化测试</td>
+<td>自动化测试平台方向</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>深信服（深圳）</strong></td>
+<td>安全/云计算 QA</td>
+<td>测试开发、性能/安全测试</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>金蝶（深圳）</strong></td>
+<td>企业 SaaS、云原生</td>
+<td>金融 SaaS 近缘，测开+全栈工具可用</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td><strong>Thoughtworks（深圳）</strong></td>
+<td>咨询型交付、质量工程</td>
+<td>看重全栈自研+方法论表达，适合你</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td><strong>中小型测开机会（典型）</strong></td>
+<td>金融 SaaS / 测试服务平台</td>
+<td>如：萨摩耶云、乐信、随手科技、Testin 云测、PerfMa、MeterSphere 系等</td>
+<td>★★★★（性价比高）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>第三梯队投递优先级</strong>：金蝶、深信服、中兴、OPPO/vivo/荣耀 → 大疆、TCL → 中小型金融 SaaS/测试服务平台（量大、回复快、适合先攒面试手感）→ 腾讯/字节（冲刺，挑 1–2 个最匹配 JD 精投，不撒网）。</p>
+<hr />
+<h2 id="三-投递记录表-模板-示例">三、投递记录表（模板 + 示例）</h2>
+<blockquote>
+<p>复制下表行追加即可。状态严格用第一章的状态机枚举值。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>公司</th>
+<th>岗位</th>
+<th>渠道</th>
+<th>投递日期</th>
+<th>状态</th>
+<th>薪资范围</th>
+<th>下次跟进动作</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>赢时胜</td>
+<td>测试开发工程师</td>
+<td>BOSS直聘</td>
+<td>2026-10-04</td>
+<td>已投</td>
+<td>15-20k</td>
+<td>10-07 未读则重发话术B</td>
+<td>突出保险资金清算</td>
+</tr>
+<tr>
+<td>2</td>
+<td>平安壹账通</td>
+<td>自动化测试工程师</td>
+<td>内推</td>
+<td>2026-10-04</td>
+<td>已读</td>
+<td>15-22k</td>
+<td>10-07 追问业务线</td>
+<td>内推人：前同事李工</td>
+</tr>
+<tr>
+<td>3</td>
+<td>金蝶</td>
+<td>测试开发工程师</td>
+<td>猎聘</td>
+<td>2026-10-04</td>
+<td>待投</td>
+<td>14-18k</td>
+<td>10-05 完成简历定制</td>
+<td>改"金融SaaS"关键词</td>
+</tr>
+</tbody>
+</table></div>
+<p>（示例数据，正式使用时删除示例行并据实填写）</p>
+<hr />
+<h2 id="四-每日投递节奏表-对齐-13-天计划">四、每日投递节奏表（对齐 13 天计划）</h2>
+<blockquote>
+<p>核心策略：先预热铺量 → 峰值冲刺 → 调休日补量 → 长尾维护。每天 21:00 前完成当日登记。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>日期</th>
+<th>阶段</th>
+<th>目标投递量</th>
+<th>重点动作</th>
+<th>渠道侧重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.04（首批）</td>
+<td>预热</td>
+<td>20–30 家</td>
+<td>第一梯队 P0 打满，话术A/B 跑通</td>
+<td>BOSS + 内推</td>
+</tr>
+<tr>
+<td>10.05</td>
+<td>预热</td>
+<td>15–20 家</td>
+<td>第二梯队 P1 启动，简历分两版</td>
+<td>BOSS + 猎聘</td>
+</tr>
+<tr>
+<td>10.06</td>
+<td>预热</td>
+<td>15–20 家</td>
+<td>补齐 P1，开始第三梯队头部</td>
+<td>BOSS</td>
+</tr>
+<tr>
+<td>10.07</td>
+<td>爬坡</td>
+<td>25–30 家</td>
+<td>复盘话术回复率，优化开场白</td>
+<td>BOSS + 内推</td>
+</tr>
+<tr>
+<td>10.08（峰值）</td>
+<td>冲刺</td>
+<td>50 家</td>
+<td>三梯队全覆盖，当日集中爆发</td>
+<td>BOSS 为主</td>
+</tr>
+<tr>
+<td>10.09</td>
+<td>维护</td>
+<td>15–20 家</td>
+<td>跟进 10.04–10.06 已读未回</td>
+<td>私聊跟进</td>
+</tr>
+<tr>
+<td>10.10（调休日）</td>
+<td>补量</td>
+<td>30 家</td>
+<td>长尾中小公司 + 冲刺腾讯/字节精投</td>
+<td>BOSS + 官网</td>
+</tr>
+<tr>
+<td>10.11–10.13</td>
+<td>维护</td>
+<td>每日 15–25 家</td>
+<td>沉默7天重投、约面转化跟进</td>
+<td>全渠道</td>
+</tr>
+<tr>
+<td>10.14 起</td>
+<td>持续</td>
+<td>每日 15–30 家</td>
+<td>面试并行，存量维护 + 新机会</td>
+<td>全渠道</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>节奏纪律</strong>：每天固定 2 个投递时段（早 9:30–10:30、晚 20:00–21:30），避免碎片化刷 BOSS 降低效率。</p>
+<hr />
+<h2 id="五-打招呼话术模板-boss-直聘开场白">五、打招呼话术模板（BOSS 直聘开场白）</h2>
+<blockquote>
+<p>三版轮换使用，避免被系统判定重复。每版 80–120 字，务必把"40+ 银行渠道、报文比对 2 人天→0.5 人天、FastAPI 全栈自研"这三点塞进去。</p>
+</blockquote>
+<p><strong>版 A · 金融科技对口版（投第一梯队乙方用）</strong></p>
+<blockquote>
+<p>您好，4 年金融科技测试经验，主攻保险资金结算与银企直联，独立对接过 40+ 银行渠道的报文联调与对账。上家用 FastAPI+Vue3 自研了报文比对与自动部署工具，把报文比对从 2 人天压到 0.5 人天、部署从 3 分钟降到 10 秒。贵司资金/支付方向与我高度匹配，期待聊聊测试开发岗，方便发份 JD 吗？</p>
+</blockquote>
+<p><strong>版 B · 测开通用版（投第二、三梯队用）</strong></p>
+<blockquote>
+<p>您好，我是测开工程师，4 年金融背景 + 双能力：既能 Java 白盒定位根因，也能用 FastAPI/Vue3 全栈自研测试工具。曾把报文比对从 2 人天降到 0.5 人天、自动部署 3 分钟→10 秒，落地过持续提效。熟悉 40+ 银行渠道对接场景。看贵司在招测试开发，我的自动化与工具化经验可直接复用，方便沟通吗？</p>
+</blockquote>
+<p><strong>版 C · 猎头回复版（猎聘/猎头微信用）</strong></p>
+<blockquote>
+<p>X 老师好，我是尹胜，4 年金融科技测试开发。核心标签：保险资金结算+银企直联（40+ 银行渠道）、Java 白盒定位 + FastAPI/Vue3 全栈自研工具、自动化提效（报文比对 2 人天→0.5 人天）。目前看深圳 15–20k 的测开/自动化岗，10 月中旬起可连续面试。若有对口金融科技或测开机会，麻烦帮推，简历随后发您，谢谢！</p>
+</blockquote>
+<hr />
+<h2 id="六-跟进话术">六、跟进话术</h2>
+<h3 id="1-已读不回-第-3-天追一句">1）已读不回 · 第 3 天追一句</h3>
+<blockquote>
+<p>您好，之前给您发过打招呼，我这边 4 年金融科技测试开发，做过保险资金结算和银企直联（40+ 银行渠道），自研工具把报文比对从 2 人天压到 0.5 人天。看贵司岗位还在招，方便的话想争取个沟通机会，打扰了～</p>
+</blockquote>
+<h3 id="2-面试后感谢语-24-小时内发">2）面试后感谢语（24 小时内发）</h3>
+<blockquote>
+<p>X 老师/面试官您好，今天和您聊 [公司名] 的 [岗位] 很受启发，尤其关于 [提到的一个具体技术点或业务点] 的讨论让我对贵司质量体系有了更具体的认识。我补充一点：之前在银企直联报文自动化上的实践，应该能较快迁移到贵司的 [相关场景]。再次感谢时间，期待后续进展，祝工作顺利！</p>
+</blockquote>
+<h3 id="3-offer-谈判期跟进-沉默-3-5-天时">3）offer 谈判期跟进（沉默 3–5 天时）</h3>
+<blockquote>
+<p>X 老师好，非常感谢 [公司名] 的 offer，我对团队和业务都很认同。关于薪资我期望落在 15–20k 区间（结合 4 年金融测试开发 + 工具自研提效的产出），如果能在 [具体数字] 这一档达成共识，我可以尽快确认入职时间。另外想确认下 offer 发放的节奏，方便我同步安排，谢谢！</p>
+</blockquote>
+<h3 id="4-沉默-7-天重投话术-换渠道-换-jd">4）沉默 7 天重投话术（换渠道/换 JD）</h3>
+<blockquote>
+<p>您好，之前在 [原渠道] 投递过 [岗位]，一直没等到回复。我 4 年金融科技测试开发，保险资金结算+银企直联（40+ 银行渠道），自研 FastAPI 工具提效明显。看贵司还有 [新岗位名] 在招，重新打扰，方便的话想争取沟通，谢谢！</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>最后提醒：台账的价值在于"真实 + 持续"。数字不好看没关系，沉默 7 天批量重投比自我怀疑有用得多。13 天集中期结束后，本台账转为周更维护即可。</p>
+</blockquote></main>
+</div>
+<footer class="foot">求职驾驶舱 · 尹胜 · 测试开发冲刺 2026.10 ｜ <a href="index.html">返回仪表盘</a></footer>
+</body>
+</html>

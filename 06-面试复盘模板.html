@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · 面试复盘 · 求职驾驶舱</title>
+<meta name="description" content="尹胜 · 测试开发工程师社招面试准备材料">
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1d2638; --line:#2a3550; --line2:#232d44;
+  --txt:#e8edf7; --sub:#93a1bd; --dim:#5b6a8a;
+  --gold:#e8b04b; --green:#4ec98a; --blue:#5b9cf5; --red:#e05d5d; --teal:#45c4b0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:"Cascadia Code",Consolas,"Courier New",monospace}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  background:rgba(23,30,46,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:11px 22px;flex-wrap:wrap}
+.topbar .back{font-size:13.5px;font-weight:600;background:var(--panel2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:8px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--gold);text-decoration:none}
+.topbar .crumb{flex:1;font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:120px}
+.topbar .raw{font-size:12.5px;color:var(--dim);border:1px solid var(--line);padding:4px 11px;border-radius:8px;white-space:nowrap}
+.topbar .raw:hover{color:var(--gold);border-color:var(--gold);text-decoration:none}
+
+.shell{max-width:1220px;margin:0 auto;padding:22px 22px 70px;display:grid;
+  grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:940px){.shell{grid-template-columns:1fr;gap:14px;padding:14px 13px 50px}}
+
+.toc{position:sticky;top:74px;max-height:calc(100vh - 96px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.toc-title{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:9px;font-weight:700}
+.toc ul{list-style:none;padding-left:0}
+.toc li{margin:1px 0}
+.toc a{color:var(--sub);display:block;padding:3px 0;line-height:1.5;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{color:var(--gold);text-decoration:none}
+.toc ul ul{padding-left:10px}
+.toc ul ul a{font-size:12.3px;color:var(--dim)}
+@media(max-width:940px){.toc{position:static;max-height:none;border-radius:10px}
+  .toc ul{max-height:230px;overflow:auto}}
+
+.content{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:30px 36px 40px;min-width:0;overflow-wrap:break-word}
+@media(max-width:940px){.content{padding:20px 17px 30px;font-size:14.5px}}
+.content>*:first-child{margin-top:0}
+.content h1{font-size:25px;color:var(--gold);padding-bottom:12px;border-bottom:2px solid var(--line);
+  margin:6px 0 20px;line-height:1.4}
+.content h2{font-size:19.5px;margin:34px 0 13px;padding-left:12px;border-left:4px solid var(--gold);line-height:1.45}
+.content h3{font-size:16.5px;margin:24px 0 9px;color:var(--blue)}
+.content h4{font-size:15px;margin:18px 0 7px;color:var(--teal)}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0 10px 4px;padding-left:22px}
+.content li{margin:5px 0}
+.content strong{color:#fff;font-weight:700}
+.content em{color:var(--gold);font-style:normal}
+.content hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.content blockquote{margin:14px 0;padding:10px 17px;background:rgba(232,176,75,.06);
+  border-left:3px solid var(--gold);border-radius:0 8px 8px 0;color:var(--sub)}
+.content blockquote p{margin:5px 0}
+
+.content code:not(.codehilite code){background:var(--panel2);color:var(--gold);
+  padding:1.5px 6px;border-radius:5px;font-size:13.2px;border:1px solid var(--line)}
+
+.codehilite{background:#12172a;border:1px solid var(--line);border-radius:10px;
+  margin:14px 0;overflow:auto;font-size:13.2px;line-height:1.65}
+.codehilite pre{margin:0;padding:14px 17px;background:transparent!important}
+.content pre:not(.codehilite pre){background:#12172a;border:1px solid var(--line);border-radius:10px;
+  padding:14px 17px;overflow:auto;font-size:13.2px;margin:14px 0}
+
+.content table{border-collapse:collapse;margin:15px 0;font-size:13.6px;width:100%}
+.content thead th{background:var(--panel2);color:var(--txt);font-weight:700;text-align:left;
+  padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+.content tbody td{padding:8px 12px;border:1px solid var(--line2);vertical-align:top}
+.content tbody tr:nth-child(even){background:rgba(255,255,255,.017)}
+.content tbody tr:hover{background:rgba(232,176,75,.05)}
+.tblwrap{overflow-x:auto;margin:15px 0}
+
+.foot{max-width:1220px;margin:0 auto;padding:0 22px 40px;color:var(--dim);font-size:12.3px;text-align:center}
+@media(max-width:940px){.foot{padding:0 13px 30px}}
+
+/* pygments */
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #F8F8F2 }
+.codehilite .c { color: #959077 } /* Comment */
+.codehilite .err { color: #ED007E; background-color: #1E0010 } /* Error */
+.codehilite .esc { color: #F8F8F2 } /* Escape */
+.codehilite .g { color: #F8F8F2 } /* Generic */
+.codehilite .k { color: #66D9EF } /* Keyword */
+.codehilite .l { color: #AE81FF } /* Literal */
+.codehilite .n { color: #F8F8F2 } /* Name */
+.codehilite .o { color: #FF4689 } /* Operator */
+.codehilite .x { color: #F8F8F2 } /* Other */
+.codehilite .p { color: #F8F8F2 } /* Punctuation */
+.codehilite .ch { color: #959077 } /* Comment.Hashbang */
+.codehilite .cm { color: #959077 } /* Comment.Multiline */
+.codehilite .cp { color: #959077 } /* Comment.Preproc */
+.codehilite .cpf { color: #959077 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #959077 } /* Comment.Single */
+.codehilite .cs { color: #959077 } /* Comment.Special */
+.codehilite .gd { color: #FF4689 } /* Generic.Deleted */
+.codehilite .ge { color: #F8F8F2; font-style: italic } /* Generic.Emph */
+.codehilite .ges { color: #F8F8F2; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #FF4689 } /* Generic.Error */
+.codehilite .gh { color: #F8F8F2 } /* Generic.Heading */
+.codehilite .gi { color: #A6E22E } /* Generic.Inserted */
+.codehilite .go { color: #66D9EF } /* Generic.Output */
+.codehilite .gp { color: #FF4689; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #F8F8F2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #959077 } /* Generic.Subheading */
+.codehilite .gt { color: #66D9EF } /* Generic.Traceback */
+.codehilite .kc { color: #66D9EF } /* Keyword.Constant */
+.codehilite .kd { color: #66D9EF } /* Keyword.Declaration */
+.codehilite .kn { color: #FF4689 } /* Keyword.Namespace */
+.codehilite .kp { color: #66D9EF } /* Keyword.Pseudo */
+.codehilite .kr { color: #66D9EF } /* Keyword.Reserved */
+.codehilite .kt { color: #66D9EF } /* Keyword.Type */
+.codehilite .ld { color: #E6DB74 } /* Literal.Date */
+.codehilite .m { color: #AE81FF } /* Literal.Number */
+.codehilite .s { color: #E6DB74 } /* Literal.String */
+.codehilite .na { color: #A6E22E } /* Name.Attribute */
+.codehilite .nb { color: #A6E22E } /* Name.Builtin */
+.codehilite .nc { color: #A6E22E } /* Name.Class */
+.codehilite .no { color: #66D9EF } /* Name.Constant */
+.codehilite .nd { color: #A6E22E } /* Name.Decorator */
+.codehilite .ni { color: #F8F8F2 } /* Name.Entity */
+.codehilite .ne { color: #A6E22E } /* Name.Exception */
+.codehilite .nf { color: #A6E22E } /* Name.Function */
+.codehilite .nl { color: #F8F8F2 } /* Name.Label */
+.codehilite .nn { color: #F8F8F2 } /* Name.Namespace */
+.codehilite .nx { color: #A6E22E } /* Name.Other */
+.codehilite .py { color: #F8F8F2 } /* Name.Property */
+.codehilite .nt { color: #FF4689 } /* Name.Tag */
+.codehilite .nv { color: #F8F8F2 } /* Name.Variable */
+.codehilite .ow { color: #FF4689 } /* Operator.Word */
+.codehilite .pm { color: #F8F8F2 } /* Punctuation.Marker */
+.codehilite .w { color: #F8F8F2 } /* Text.Whitespace */
+.codehilite .mb { color: #AE81FF } /* Literal.Number.Bin */
+.codehilite .mf { color: #AE81FF } /* Literal.Number.Float */
+.codehilite .mh { color: #AE81FF } /* Literal.Number.Hex */
+.codehilite .mi { color: #AE81FF } /* Literal.Number.Integer */
+.codehilite .mo { color: #AE81FF } /* Literal.Number.Oct */
+.codehilite .sa { color: #E6DB74 } /* Literal.String.Affix */
+.codehilite .sb { color: #E6DB74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #E6DB74 } /* Literal.String.Char */
+.codehilite .dl { color: #E6DB74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #E6DB74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #E6DB74 } /* Literal.String.Double */
+.codehilite .se { color: #AE81FF } /* Literal.String.Escape */
+.codehilite .sh { color: #E6DB74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #E6DB74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #E6DB74 } /* Literal.String.Other */
+.codehilite .sr { color: #E6DB74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #E6DB74 } /* Literal.String.Single */
+.codehilite .ss { color: #E6DB74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #A6E22E } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #A6E22E } /* Name.Function.Magic */
+.codehilite .vc { color: #F8F8F2 } /* Name.Variable.Class */
+.codehilite .vg { color: #F8F8F2 } /* Name.Variable.Global */
+.codehilite .vi { color: #F8F8F2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #F8F8F2 } /* Name.Variable.Magic */
+.codehilite .il { color: #AE81FF } /* Literal.Number.Integer.Long */</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="index.html">← 驾驶舱</a>
+  <span class="crumb">06 · 面试复盘</span>
+  <a class="raw" href="06-面试复盘模板.md">原始 Markdown</a>
+</header>
+<div class="shell">
+  <aside class="toc"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#06-面试复盘">06 · 面试复盘</a><ul>
+<li><a href="#使用说明">使用说明</a></li>
+<li><a href="#一-快速复盘表-每次面试复制一份">一、快速复盘表（每次面试复制一份）</a><ul>
+<li><a href="#示例-面试-1-模板示范-正式使用请删除">示例（面试#1 模板示范，正式使用请删除）</a></li>
+</ul>
+</li>
+<li><a href="#二-面试复盘汇总表-横向看">二、面试复盘汇总表（横向看）</a></li>
+<li><a href="#三-一轮-二轮-hr-面常见差异速查">三、一轮 / 二轮 / HR 面常见差异速查</a></li>
+<li><a href="#四-面试当天-checklist">四、面试当天 checklist</a><ul>
+<li><a href="#前一夜-睡前-30-分钟做完">前一夜（睡前 30 分钟做完）</a></li>
+<li><a href="#出发前-上线前-提前-15-分钟">出发前 / 上线前（提前 15 分钟）</a></li>
+</ul>
+</li>
+<li><a href="#五-挂了之后怎么办">五、挂了之后怎么办</a><ul>
+<li><a href="#1-要-feedback-话术-挂后-24-48-小时-得体地求原因">1）要 feedback 话术（挂后 24–48 小时，得体地求原因）</a></li>
+<li><a href="#2-同公司冷静期">2）同公司冷静期</a></li>
+<li><a href="#3-心态恢复动作清单-掉分就做">3）心态恢复动作清单（掉分就做）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+  <main class="content"><h1 id="06-面试复盘">06 · 面试复盘</h1>
+<blockquote>
+<p>面试是"信息差"游戏。每一场面试暴露的盲区、被问穿的故事、卡壳的题目，都是下一次更好的弹药。本模板让你把每一场面试变成可复用的资产，而不是考完就忘的情绪起伏。</p>
+</blockquote>
+<hr />
+<h2 id="使用说明">使用说明</h2>
+<ol>
+<li><strong>时机</strong>：面试结束后 <strong>30 分钟内</strong> 完成复盘，趁记忆新鲜。线上面结束立刻开文档，线下面在回家路上用手机先记要点。</li>
+<li><strong>频率</strong>：每次面试复制"一、快速复盘表"一份，编号递增（<code>面试#1</code>、<code>面试#2</code>…）。</li>
+<li><strong>横向汇总</strong>：每积累 3–5 场，更新"二、面试复盘汇总表"，找高频重复的题优先补。</li>
+<li><strong>心态</strong>：复盘不是自我批判大会。卡壳和盲区 = 待办清单，不是你不行。录取是概率游戏，样本量上去自然中。</li>
+<li><strong>归档</strong>：复盘表可与 <code>05-投递台账.md</code> 的"状态"联动——约面/已面/二面状态变更时，同步在此新增对应复盘表。</li>
+</ol>
+<hr />
+<h2 id="一-快速复盘表-每次面试复制一份">一、快速复盘表（每次面试复制一份）</h2>
+<div class="codehilite"><pre><span></span><code>### 面试#___ | 公司____ | 岗位____ | 轮次____ | 日期____
+
+- 基本情况：
+  - 时长：___ 分钟
+  - 面试官背景：___（测试Leader / 开发 / HR / 交叉面）
+  - 形式：___（视频 / 电话 / 现场 / 笔试）
+
+- 流水账（按时间顺序，把被问的每一题都写下来，这是最值钱的资产）：
+  1. 
+  2. 
+  3. 
+  …（能回忆多少写多少，包括"让我写段代码""画个流程图"这类动作）
+
+- 表现自评：
+  - 答得好的 3 个（具体到题目）：
+    1. 
+    2. 
+    3. 
+  - 卡壳的 3 个（具体到题目，写清卡在哪一步）：
+    1. 
+    2. 
+    3. 
+
+- 出现的盲区（完全不会 / 没准备到的知识点）：
+  - 
+  - 
+
+- 追问暴露的软肋（哪个故事/项目被追问穿了）：
+  - 
+
+- 待办转化：
+  → 新增题库补充点：
+  → 需要重练的 STAR（情境-任务-行动-结果）：
+  → 对该公司的疑虑（业务/团队/加班/薪资）：
+</code></pre></div>
+
+<h3 id="示例-面试-1-模板示范-正式使用请删除">示例（面试#1 模板示范，正式使用请删除）</h3>
+<div class="codehilite"><pre><span></span><code>### 面试#1 | 公司_赢时胜_ | 岗位_测试开发_ | 轮次_一面_ | 日期_2026-10-09_
+
+- 基本情况：时长 45 分钟；面试官是测试组长（偏金融清算业务）；视频面。
+- 流水账：1. 自我介绍 2. 讲报文比对工具的设计 3. 问银企直联对账差异怎么定位 4. 手写一个字符串转日期的 Python 5. 问 Redis 在自动化里怎么用 6. 反问环节
+- 表现自评：
+  - 答得好的：报文比对工具讲得清楚（2人天→0.5人天有数据）；银企直联对账逻辑熟练。
+  - 卡壳的：Redis 持久化机制说不全；手写日期解析漏了异常分支。
+- 出现的盲区：没准备 Redis 底层，被问 AOF/RDB 卡住。
+- 追问暴露的软肋："工具怎么保证并发安全"没答好，被追问到线程锁就含糊。
+- 待办转化：
+  → 新增题库：Redis 持久化、并发安全（锁/线程池）
+  → 重练 STAR：报文比对工具从0到1的推动过程
+  → 疑虑：团队偏传统金融，技术栈偏老
+</code></pre></div>
+
+<hr />
+<h2 id="二-面试复盘汇总表-横向看">二、面试复盘汇总表（横向看）</h2>
+<blockquote>
+<p>每 3–5 场更新一次。把各场"流水账"里的题去重归类，标出现次数，出现 ≥ 2 次的即"高频题"，优先补。</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>高频题/知识点</th>
+<th>出现场次</th>
+<th>出现次数</th>
+<th>是否已补</th>
+<th>我的标准答案(简述)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动化框架设计（pytest/接口）</td>
+<td>#1,#2</td>
+<td>2</td>
+<td>待补</td>
+<td></td>
+</tr>
+<tr>
+<td>数据库事务/锁</td>
+<td>#1</td>
+<td>1</td>
+<td>待补</td>
+<td></td>
+</tr>
+<tr>
+<td>银企直联对账逻辑</td>
+<td>#1,#3</td>
+<td>2</td>
+<td>已补</td>
+<td></td>
+</tr>
+<tr>
+<td>并发/线程安全</td>
+<td>#1,#2</td>
+<td>2</td>
+<td>待补</td>
+<td></td>
+</tr>
+<tr>
+<td>自我介绍讲项目</td>
+<td>全部</td>
+<td>多</td>
+<td>已练</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>各公司进度看板（摘录自台账）</strong>：</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>公司</th>
+<th>当前轮次</th>
+<th>状态</th>
+<th>下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>心态曲线（每周自评 1–5 分，5 为最佳）</strong>：</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>周次</th>
+<th>日期区间</th>
+<th>面试场次</th>
+<th>心态分</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W1</td>
+<td>10.08–10.14</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>心态掉到 2 分以下时，强制做"五、挂了之后怎么办"里的恢复动作，不要硬扛。</p>
+</blockquote>
+<hr />
+<h2 id="三-一轮-二轮-hr-面常见差异速查">三、一轮 / 二轮 / HR 面常见差异速查</h2>
+<p>不同轮次考察重点完全不同，准备策略要切换。</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>轮次</th>
+<th>考察重点</th>
+<th>典型问题方向</th>
+<th>你的应对重心</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一面（技术基础 + 项目）</strong></td>
+<td>基础是否扎实、项目是否真实</td>
+<td>测试理论、用例设计、SQL、Linux、接口测试、你项目里的细节</td>
+<td>把"报文比对工具""自动部署"讲成有数据、有难点的真实故事</td>
+</tr>
+<tr>
+<td><strong>二面（技术深度 + 设计）</strong></td>
+<td>系统设计、难题拆解、技术广度</td>
+<td>自动化平台架构、性能/安全测试设计、故障定位思路、方案权衡</td>
+<td>用 Java 白盒定位经验展现实战深度；画架构图讲工具演进</td>
+</tr>
+<tr>
+<td><strong>三面/交叉面（业务 + 协作）</strong></td>
+<td>跨团队推动、业务理解</td>
+<td>你如何推动开发改 bug、银企直联业务痛点、需求评审参与</td>
+<td>突出"测试+开发双能力"如何减少协作摩擦</td>
+</tr>
+<tr>
+<td><strong>HR 面（动机 + 稳定性）</strong></td>
+<td>为什么走、薪资预期、到岗时间、抗压</td>
+<td>离职原因、期望薪资、深圳定居意愿、加班看法</td>
+<td>离职说"业务收缩/寻求更大平台"，薪资锚定 15–20k 中位数，强调 10 月中旬可连续面试</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>必考题预案（每场都可能被问）</strong>：
+- 自我介绍（30/60/90 秒三版，背熟）
+- 为什么离开浙江保融 / 为什么来深圳
+- 你最大的测试提效产出是什么（锚定 2人天→0.5人天、3分钟→10秒）
+- 你用什么 AI 工具提效（Claude Code 真实案例准备 1 个）</p>
+<hr />
+<h2 id="四-面试当天-checklist">四、面试当天 checklist</h2>
+<h3 id="前一夜-睡前-30-分钟做完">前一夜（睡前 30 分钟做完）</h3>
+<ul>
+<li>☐ <strong>公司调研</strong>：官网/天眼查/脉脉看业务线、主力产品、近期新闻（1 条能聊的点）</li>
+<li>☐ <strong>岗位 JD 重读</strong>：把 JD 关键词和自己的经历做映射，准备"我哪三点匹配"</li>
+<li>☐ <strong>自我介绍热口</strong>：对着镜子或录音讲一遍 60 秒版，确保不卡</li>
+<li>☐ <strong>3 个 STAR 故事热口</strong>：</li>
+<li>故事1：报文比对工具从 0 到 1（提效数据）</li>
+<li>故事2：Java 白盒定位某个难 bug（技术深度）</li>
+<li>故事3：跨团队推动自动化落地（协作/推动）</li>
+<li>☐ <strong>技术问题速览</strong>：翻一遍"二、汇总表"的高频未补项</li>
+<li>☐ <strong>物料</strong>：简历 PDF 最新版存手机+邮件；作品/工具截图备好</li>
+</ul>
+<h3 id="出发前-上线前-提前-15-分钟">出发前 / 上线前（提前 15 分钟）</h3>
+<ul>
+<li>☐ <strong>线上面</strong>：设备充好电、摄像头麦克风测试、网络测速、安静背景、退出无关软件</li>
+<li>☐ <strong>线下面</strong>：打印简历 2 份、带身份证/工牌备份、查好路线预留 30 分钟冗余</li>
+<li>☐ <strong>提前 15 分钟</strong>进入会议室/到达大楼，调呼吸，不临时啃新东西</li>
+<li>☐ <strong>最后一句心理暗示</strong>："我是来交换信息的，不是被审判的"</li>
+</ul>
+<hr />
+<h2 id="五-挂了之后怎么办">五、挂了之后怎么办</h2>
+<p>被挂是常态，关键是用最低情绪成本把价值榨出来、快速翻篇。</p>
+<h3 id="1-要-feedback-话术-挂后-24-48-小时-得体地求原因">1）要 feedback 话术（挂后 24–48 小时，得体地求原因）</h3>
+<blockquote>
+<p>X 老师您好，很遗憾这次没能进入下一轮，但和您交流很有收获。方便透露一下主要考量点吗？无论是技术深度还是匹配度，我都想诚实地复盘提升。十分感谢您的时间，也祝团队招到合适的人。</p>
+<p>提示：HR 常回"综合评估/更匹配的候选人"，别纠缠。但若拿到具体点（如"自动化框架设计偏弱"），立刻记入汇总表补强。</p>
+</blockquote>
+<h3 id="2-同公司冷静期">2）同公司冷静期</h3>
+<ul>
+<li>大厂/正规公司：同一岗位通常 <strong>3–6 个月</strong> 内不可重复投递，挂后先标记"冷却中"，到期再试。</li>
+<li>不同事业部/不同岗位：可换 JD 重新投，但避免短时间同一 HR 重复打扰。</li>
+<li>在台账把状态标 <code>挂</code>，备注"冷却至 YYYY-MM-DD"。</li>
+</ul>
+<h3 id="3-心态恢复动作清单-掉分就做">3）心态恢复动作清单（掉分就做）</h3>
+<ul>
+<li>☐ <strong>物理断开</strong>：挂后 1 小时内不刷招聘软件，去走 20 分钟或运动</li>
+<li>☐ <strong>价值回收</strong>：把这场面试新增的"盲区/待办"写进汇总表——这叫"挂得值"</li>
+<li>☐ <strong>样本量提醒</strong>：对自己说"面试是概率，中 1 个要面 8–10 个，挂 7 个是正常的"</li>
+<li>☐ <strong>小胜记录</strong>：当天写下 1 件面试中答得好的事，防止全盘否定</li>
+<li>☐ <strong>节奏兜底</strong>：若连续 3 场挂且同源问题，暂停 1 天集中补"二、汇总表"高频项，再战</li>
+<li>☐ <strong>社交稀释</strong>：和 1 个同行/朋友聊 10 分钟，避免信息孤岛里的自我怀疑</li>
+</ul>
+<hr />
+<blockquote>
+<p>复盘的本质：把每一次"被问住"变成下一次"答得顺"。坚持填完 13 天 + 10 场复盘，你会明显感到手感变稳。祝你深圳顺利上岸 15–20k 测开岗。</p>
+</blockquote></main>
+</div>
+<footer class="foot">求职驾驶舱 · 尹胜 · 测试开发冲刺 2026.10 ｜ <a href="index.html">返回仪表盘</a></footer>
+</body>
+</html>

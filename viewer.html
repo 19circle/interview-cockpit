@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown 查看器 · 求职驾驶舱</title>
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1d2638; --line:#2a3550; --line2:#232d44;
+  --txt:#e8edf7; --sub:#93a1bd; --dim:#5b6a8a;
+  --gold:#e8b04b; --green:#4ec98a; --blue:#5b9cf5; --red:#e05d5d; --teal:#45c4b0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:"Cascadia Code",Consolas,"Courier New",monospace}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  background:rgba(23,30,46,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:11px 22px;flex-wrap:wrap}
+.topbar .back{font-size:13.5px;font-weight:600;background:var(--panel2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:8px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--gold);text-decoration:none}
+.topbar .crumb{flex:1;font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:120px}
+.topbar .raw{font-size:12.5px;color:var(--dim);border:1px solid var(--line);padding:4px 11px;border-radius:8px;white-space:nowrap}
+.topbar .raw:hover{color:var(--gold);border-color:var(--gold);text-decoration:none}
+
+.shell{max-width:1220px;margin:0 auto;padding:22px 22px 70px;display:grid;
+  grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:940px){.shell{grid-template-columns:1fr;gap:14px;padding:14px 13px 50px}}
+
+.toc{position:sticky;top:74px;max-height:calc(100vh - 96px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.toc-title{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:9px;font-weight:700}
+.toc ul{list-style:none;padding-left:0}
+.toc li{margin:1px 0}
+.toc a{color:var(--sub);display:block;padding:3px 0;line-height:1.5;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{color:var(--gold);text-decoration:none}
+.toc ul ul{padding-left:10px}
+.toc ul ul a{font-size:12.3px;color:var(--dim)}
+@media(max-width:940px){.toc{position:static;max-height:none;border-radius:10px}
+  .toc ul{max-height:230px;overflow:auto}}
+
+.content{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:30px 36px 40px;min-width:0;overflow-wrap:break-word}
+@media(max-width:940px){.content{padding:20px 17px 30px;font-size:14.5px}}
+.content>*:first-child{margin-top:0}
+.content h1{font-size:25px;color:var(--gold);padding-bottom:12px;border-bottom:2px solid var(--line);
+  margin:6px 0 20px;line-height:1.4}
+.content h2{font-size:19.5px;margin:34px 0 13px;padding-left:12px;border-left:4px solid var(--gold);line-height:1.45}
+.content h3{font-size:16.5px;margin:24px 0 9px;color:var(--blue)}
+.content h4{font-size:15px;margin:18px 0 7px;color:var(--teal)}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0 10px 4px;padding-left:22px}
+.content li{margin:5px 0}
+.content strong{color:#fff;font-weight:700}
+.content em{color:var(--gold);font-style:normal}
+.content hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.content blockquote{margin:14px 0;padding:10px 17px;background:rgba(232,176,75,.06);
+  border-left:3px solid var(--gold);border-radius:0 8px 8px 0;color:var(--sub)}
+.content blockquote p{margin:5px 0}
+
+.content code:not(.codehilite code){background:var(--panel2);color:var(--gold);
+  padding:1.5px 6px;border-radius:5px;font-size:13.2px;border:1px solid var(--line)}
+
+.codehilite{background:#12172a;border:1px solid var(--line);border-radius:10px;
+  margin:14px 0;overflow:auto;font-size:13.2px;line-height:1.65}
+.codehilite pre{margin:0;padding:14px 17px;background:transparent!important}
+.content pre:not(.codehilite pre){background:#12172a;border:1px solid var(--line);border-radius:10px;
+  padding:14px 17px;overflow:auto;font-size:13.2px;margin:14px 0}
+
+.content table{border-collapse:collapse;margin:15px 0;font-size:13.6px;width:100%}
+.content thead th{background:var(--panel2);color:var(--txt);font-weight:700;text-align:left;
+  padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+.content tbody td{padding:8px 12px;border:1px solid var(--line2);vertical-align:top}
+.content tbody tr:nth-child(even){background:rgba(255,255,255,.017)}
+.content tbody tr:hover{background:rgba(232,176,75,.05)}
+.tblwrap{overflow-x:auto;margin:15px 0}
+
+.foot{max-width:1220px;margin:0 auto;padding:0 22px 40px;color:var(--dim);font-size:12.3px;text-align:center}
+@media(max-width:940px){.foot{padding:0 13px 30px}}
+
+/* pygments */
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #F8F8F2 }
+.codehilite .c { color: #959077 } /* Comment */
+.codehilite .err { color: #ED007E; background-color: #1E0010 } /* Error */
+.codehilite .esc { color: #F8F8F2 } /* Escape */
+.codehilite .g { color: #F8F8F2 } /* Generic */
+.codehilite .k { color: #66D9EF } /* Keyword */
+.codehilite .l { color: #AE81FF } /* Literal */
+.codehilite .n { color: #F8F8F2 } /* Name */
+.codehilite .o { color: #FF4689 } /* Operator */
+.codehilite .x { color: #F8F8F2 } /* Other */
+.codehilite .p { color: #F8F8F2 } /* Punctuation */
+.codehilite .ch { color: #959077 } /* Comment.Hashbang */
+.codehilite .cm { color: #959077 } /* Comment.Multiline */
+.codehilite .cp { color: #959077 } /* Comment.Preproc */
+.codehilite .cpf { color: #959077 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #959077 } /* Comment.Single */
+.codehilite .cs { color: #959077 } /* Comment.Special */
+.codehilite .gd { color: #FF4689 } /* Generic.Deleted */
+.codehilite .ge { color: #F8F8F2; font-style: italic } /* Generic.Emph */
+.codehilite .ges { color: #F8F8F2; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #FF4689 } /* Generic.Error */
+.codehilite .gh { color: #F8F8F2 } /* Generic.Heading */
+.codehilite .gi { color: #A6E22E } /* Generic.Inserted */
+.codehilite .go { color: #66D9EF } /* Generic.Output */
+.codehilite .gp { color: #FF4689; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #F8F8F2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #959077 } /* Generic.Subheading */
+.codehilite .gt { color: #66D9EF } /* Generic.Traceback */
+.codehilite .kc { color: #66D9EF } /* Keyword.Constant */
+.codehilite .kd { color: #66D9EF } /* Keyword.Declaration */
+.codehilite .kn { color: #FF4689 } /* Keyword.Namespace */
+.codehilite .kp { color: #66D9EF } /* Keyword.Pseudo */
+.codehilite .kr { color: #66D9EF } /* Keyword.Reserved */
+.codehilite .kt { color: #66D9EF } /* Keyword.Type */
+.codehilite .ld { color: #E6DB74 } /* Literal.Date */
+.codehilite .m { color: #AE81FF } /* Literal.Number */
+.codehilite .s { color: #E6DB74 } /* Literal.String */
+.codehilite .na { color: #A6E22E } /* Name.Attribute */
+.codehilite .nb { color: #A6E22E } /* Name.Builtin */
+.codehilite .nc { color: #A6E22E } /* Name.Class */
+.codehilite .no { color: #66D9EF } /* Name.Constant */
+.codehilite .nd { color: #A6E22E } /* Name.Decorator */
+.codehilite .ni { color: #F8F8F2 } /* Name.Entity */
+.codehilite .ne { color: #A6E22E } /* Name.Exception */
+.codehilite .nf { color: #A6E22E } /* Name.Function */
+.codehilite .nl { color: #F8F8F2 } /* Name.Label */
+.codehilite .nn { color: #F8F8F2 } /* Name.Namespace */
+.codehilite .nx { color: #A6E22E } /* Name.Other */
+.codehilite .py { color: #F8F8F2 } /* Name.Property */
+.codehilite .nt { color: #FF4689 } /* Name.Tag */
+.codehilite .nv { color: #F8F8F2 } /* Name.Variable */
+.codehilite .ow { color: #FF4689 } /* Operator.Word */
+.codehilite .pm { color: #F8F8F2 } /* Punctuation.Marker */
+.codehilite .w { color: #F8F8F2 } /* Text.Whitespace */
+.codehilite .mb { color: #AE81FF } /* Literal.Number.Bin */
+.codehilite .mf { color: #AE81FF } /* Literal.Number.Float */
+.codehilite .mh { color: #AE81FF } /* Literal.Number.Hex */
+.codehilite .mi { color: #AE81FF } /* Literal.Number.Integer */
+.codehilite .mo { color: #AE81FF } /* Literal.Number.Oct */
+.codehilite .sa { color: #E6DB74 } /* Literal.String.Affix */
+.codehilite .sb { color: #E6DB74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #E6DB74 } /* Literal.String.Char */
+.codehilite .dl { color: #E6DB74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #E6DB74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #E6DB74 } /* Literal.String.Double */
+.codehilite .se { color: #AE81FF } /* Literal.String.Escape */
+.codehilite .sh { color: #E6DB74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #E6DB74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #E6DB74 } /* Literal.String.Other */
+.codehilite .sr { color: #E6DB74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #E6DB74 } /* Literal.String.Single */
+.codehilite .ss { color: #E6DB74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #A6E22E } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #A6E22E } /* Name.Function.Magic */
+.codehilite .vc { color: #F8F8F2 } /* Name.Variable.Class */
+.codehilite .vg { color: #F8F8F2 } /* Name.Variable.Global */
+.codehilite .vi { color: #F8F8F2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #F8F8F2 } /* Name.Variable.Magic */
+.codehilite .il { color: #AE81FF } /* Literal.Number.Integer.Long */
+.vwrap{max-width:1000px;margin:0 auto;padding:22px}
+#vcontent{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:30px 36px}
+@media(max-width:940px){#vcontent{padding:20px 17px}.vwrap{padding:14px 13px}}
+.pick{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 11px;font-size:13px}
+</style></head>
+<body>
+<header class="topbar">
+  <a class="back" href="index.html">← 驾驶舱</a>
+  <span class="crumb">Markdown 查看器（原始文件渲染）</span>
+  <select class="pick" id="pick" onchange="load(this.value)"></select>
+</header>
+<div class="vwrap"><main id="vcontent">加载中…</main></div>
+<script src="marked.umd.js"></script>
+<script>
+const FILES=["00-README.md","01-13天作战总表.md","02-STAR故事集与项目深挖.md",
+"03-题库01-测试理论与用例设计.md","03-题库02-Python与pytest.md","03-题库03-SQL与数据库.md",
+"03-题库04-Linux网络与排查.md","03-题库05-自动化框架与工具.md","03-题库06-性能测试与JMeter.md",
+"03-题库07-项目深挖与AI认知.md","04-HR面话术与谈薪.md","05-投递台账.md","06-面试复盘模板.md",
+"社招自我介绍与求职策略-尹胜.md"];
+const pick=document.getElementById('pick');
+FILES.forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;pick.appendChild(o)});
+function load(f){
+  if(!f)return; pick.value=f;
+  const box=document.getElementById('vcontent');
+  box.innerHTML='<p style="color:#93a1bd">加载中…</p>';
+  fetch(f).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()})
+    .then(t=>{box.innerHTML=marked.parse(t);window.scrollTo(0,0)})
+    .catch(e=>{box.innerHTML='<p style="color:#e05d5d">加载失败：'+e.message+
+      '<br><br>本地双击打开时浏览器会拦截读取本地文件（file:// 跨域限制）。<br>请改用预渲染页面：<a href="00-README.html">00-README.html</a></p>'});
+}
+const q=new URLSearchParams(location.search).get('md');
+load(q&&FILES.includes(q)?q:'00-README.md');
+</script>
+</body></html>

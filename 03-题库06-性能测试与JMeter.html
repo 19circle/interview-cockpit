@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>题库06 · 性能测试与 JMeter · 求职驾驶舱</title>
+<meta name="description" content="尹胜 · 测试开发工程师社招面试准备材料">
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1d2638; --line:#2a3550; --line2:#232d44;
+  --txt:#e8edf7; --sub:#93a1bd; --dim:#5b6a8a;
+  --gold:#e8b04b; --green:#4ec98a; --blue:#5b9cf5; --red:#e05d5d; --teal:#45c4b0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:"Cascadia Code",Consolas,"Courier New",monospace}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  background:rgba(23,30,46,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:11px 22px;flex-wrap:wrap}
+.topbar .back{font-size:13.5px;font-weight:600;background:var(--panel2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:8px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--gold);text-decoration:none}
+.topbar .crumb{flex:1;font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:120px}
+.topbar .raw{font-size:12.5px;color:var(--dim);border:1px solid var(--line);padding:4px 11px;border-radius:8px;white-space:nowrap}
+.topbar .raw:hover{color:var(--gold);border-color:var(--gold);text-decoration:none}
+
+.shell{max-width:1220px;margin:0 auto;padding:22px 22px 70px;display:grid;
+  grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:940px){.shell{grid-template-columns:1fr;gap:14px;padding:14px 13px 50px}}
+
+.toc{position:sticky;top:74px;max-height:calc(100vh - 96px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.toc-title{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:9px;font-weight:700}
+.toc ul{list-style:none;padding-left:0}
+.toc li{margin:1px 0}
+.toc a{color:var(--sub);display:block;padding:3px 0;line-height:1.5;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{color:var(--gold);text-decoration:none}
+.toc ul ul{padding-left:10px}
+.toc ul ul a{font-size:12.3px;color:var(--dim)}
+@media(max-width:940px){.toc{position:static;max-height:none;border-radius:10px}
+  .toc ul{max-height:230px;overflow:auto}}
+
+.content{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:30px 36px 40px;min-width:0;overflow-wrap:break-word}
+@media(max-width:940px){.content{padding:20px 17px 30px;font-size:14.5px}}
+.content>*:first-child{margin-top:0}
+.content h1{font-size:25px;color:var(--gold);padding-bottom:12px;border-bottom:2px solid var(--line);
+  margin:6px 0 20px;line-height:1.4}
+.content h2{font-size:19.5px;margin:34px 0 13px;padding-left:12px;border-left:4px solid var(--gold);line-height:1.45}
+.content h3{font-size:16.5px;margin:24px 0 9px;color:var(--blue)}
+.content h4{font-size:15px;margin:18px 0 7px;color:var(--teal)}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0 10px 4px;padding-left:22px}
+.content li{margin:5px 0}
+.content strong{color:#fff;font-weight:700}
+.content em{color:var(--gold);font-style:normal}
+.content hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.content blockquote{margin:14px 0;padding:10px 17px;background:rgba(232,176,75,.06);
+  border-left:3px solid var(--gold);border-radius:0 8px 8px 0;color:var(--sub)}
+.content blockquote p{margin:5px 0}
+
+.content code:not(.codehilite code){background:var(--panel2);color:var(--gold);
+  padding:1.5px 6px;border-radius:5px;font-size:13.2px;border:1px solid var(--line)}
+
+.codehilite{background:#12172a;border:1px solid var(--line);border-radius:10px;
+  margin:14px 0;overflow:auto;font-size:13.2px;line-height:1.65}
+.codehilite pre{margin:0;padding:14px 17px;background:transparent!important}
+.content pre:not(.codehilite pre){background:#12172a;border:1px solid var(--line);border-radius:10px;
+  padding:14px 17px;overflow:auto;font-size:13.2px;margin:14px 0}
+
+.content table{border-collapse:collapse;margin:15px 0;font-size:13.6px;width:100%}
+.content thead th{background:var(--panel2);color:var(--txt);font-weight:700;text-align:left;
+  padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+.content tbody td{padding:8px 12px;border:1px solid var(--line2);vertical-align:top}
+.content tbody tr:nth-child(even){background:rgba(255,255,255,.017)}
+.content tbody tr:hover{background:rgba(232,176,75,.05)}
+.tblwrap{overflow-x:auto;margin:15px 0}
+
+.foot{max-width:1220px;margin:0 auto;padding:0 22px 40px;color:var(--dim);font-size:12.3px;text-align:center}
+@media(max-width:940px){.foot{padding:0 13px 30px}}
+
+/* pygments */
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #F8F8F2 }
+.codehilite .c { color: #959077 } /* Comment */
+.codehilite .err { color: #ED007E; background-color: #1E0010 } /* Error */
+.codehilite .esc { color: #F8F8F2 } /* Escape */
+.codehilite .g { color: #F8F8F2 } /* Generic */
+.codehilite .k { color: #66D9EF } /* Keyword */
+.codehilite .l { color: #AE81FF } /* Literal */
+.codehilite .n { color: #F8F8F2 } /* Name */
+.codehilite .o { color: #FF4689 } /* Operator */
+.codehilite .x { color: #F8F8F2 } /* Other */
+.codehilite .p { color: #F8F8F2 } /* Punctuation */
+.codehilite .ch { color: #959077 } /* Comment.Hashbang */
+.codehilite .cm { color: #959077 } /* Comment.Multiline */
+.codehilite .cp { color: #959077 } /* Comment.Preproc */
+.codehilite .cpf { color: #959077 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #959077 } /* Comment.Single */
+.codehilite .cs { color: #959077 } /* Comment.Special */
+.codehilite .gd { color: #FF4689 } /* Generic.Deleted */
+.codehilite .ge { color: #F8F8F2; font-style: italic } /* Generic.Emph */
+.codehilite .ges { color: #F8F8F2; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #FF4689 } /* Generic.Error */
+.codehilite .gh { color: #F8F8F2 } /* Generic.Heading */
+.codehilite .gi { color: #A6E22E } /* Generic.Inserted */
+.codehilite .go { color: #66D9EF } /* Generic.Output */
+.codehilite .gp { color: #FF4689; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #F8F8F2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #959077 } /* Generic.Subheading */
+.codehilite .gt { color: #66D9EF } /* Generic.Traceback */
+.codehilite .kc { color: #66D9EF } /* Keyword.Constant */
+.codehilite .kd { color: #66D9EF } /* Keyword.Declaration */
+.codehilite .kn { color: #FF4689 } /* Keyword.Namespace */
+.codehilite .kp { color: #66D9EF } /* Keyword.Pseudo */
+.codehilite .kr { color: #66D9EF } /* Keyword.Reserved */
+.codehilite .kt { color: #66D9EF } /* Keyword.Type */
+.codehilite .ld { color: #E6DB74 } /* Literal.Date */
+.codehilite .m { color: #AE81FF } /* Literal.Number */
+.codehilite .s { color: #E6DB74 } /* Literal.String */
+.codehilite .na { color: #A6E22E } /* Name.Attribute */
+.codehilite .nb { color: #A6E22E } /* Name.Builtin */
+.codehilite .nc { color: #A6E22E } /* Name.Class */
+.codehilite .no { color: #66D9EF } /* Name.Constant */
+.codehilite .nd { color: #A6E22E } /* Name.Decorator */
+.codehilite .ni { color: #F8F8F2 } /* Name.Entity */
+.codehilite .ne { color: #A6E22E } /* Name.Exception */
+.codehilite .nf { color: #A6E22E } /* Name.Function */
+.codehilite .nl { color: #F8F8F2 } /* Name.Label */
+.codehilite .nn { color: #F8F8F2 } /* Name.Namespace */
+.codehilite .nx { color: #A6E22E } /* Name.Other */
+.codehilite .py { color: #F8F8F2 } /* Name.Property */
+.codehilite .nt { color: #FF4689 } /* Name.Tag */
+.codehilite .nv { color: #F8F8F2 } /* Name.Variable */
+.codehilite .ow { color: #FF4689 } /* Operator.Word */
+.codehilite .pm { color: #F8F8F2 } /* Punctuation.Marker */
+.codehilite .w { color: #F8F8F2 } /* Text.Whitespace */
+.codehilite .mb { color: #AE81FF } /* Literal.Number.Bin */
+.codehilite .mf { color: #AE81FF } /* Literal.Number.Float */
+.codehilite .mh { color: #AE81FF } /* Literal.Number.Hex */
+.codehilite .mi { color: #AE81FF } /* Literal.Number.Integer */
+.codehilite .mo { color: #AE81FF } /* Literal.Number.Oct */
+.codehilite .sa { color: #E6DB74 } /* Literal.String.Affix */
+.codehilite .sb { color: #E6DB74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #E6DB74 } /* Literal.String.Char */
+.codehilite .dl { color: #E6DB74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #E6DB74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #E6DB74 } /* Literal.String.Double */
+.codehilite .se { color: #AE81FF } /* Literal.String.Escape */
+.codehilite .sh { color: #E6DB74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #E6DB74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #E6DB74 } /* Literal.String.Other */
+.codehilite .sr { color: #E6DB74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #E6DB74 } /* Literal.String.Single */
+.codehilite .ss { color: #E6DB74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #A6E22E } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #A6E22E } /* Name.Function.Magic */
+.codehilite .vc { color: #F8F8F2 } /* Name.Variable.Class */
+.codehilite .vg { color: #F8F8F2 } /* Name.Variable.Global */
+.codehilite .vi { color: #F8F8F2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #F8F8F2 } /* Name.Variable.Magic */
+.codehilite .il { color: #AE81FF } /* Literal.Number.Integer.Long */</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="index.html">← 驾驶舱</a>
+  <span class="crumb">题库06 · 性能测试与 JMeter</span>
+  <a class="raw" href="03-题库06-性能测试与JMeter.md">原始 Markdown</a>
+</header>
+<div class="shell">
+  <aside class="toc"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#题库06-性能测试与-jmeter">题库06 · 性能测试与 JMeter</a><ul>
+<li><a href="#模块说明-考频-你的王牌与软肋-怎么用本文件">模块说明（考频 / 你的王牌与软肋 / 怎么用本文件）</a></li>
+<li><a href="#一-高频题-20-题">一、高频题（20 题）</a><ul>
+<li><a href="#1-性能测试的目的是什么">1. 性能测试的目的是什么？</a></li>
+<li><a href="#2-负载-压力-容量-稳定性-尖峰测试区别">2. 负载 / 压力 / 容量 / 稳定性 / 尖峰测试区别</a></li>
+<li><a href="#3-核心指标详解-tps-qps-rt-并发数-错误率-资源利用率">3. 核心指标详解：TPS / QPS / RT / 并发数 / 错误率 / 资源利用率</a></li>
+<li><a href="#4-tps-和响应时间-并发数的关系曲线-拐点怎么理解">4. TPS 和响应时间、并发数的关系曲线（拐点怎么理解）</a></li>
+<li><a href="#5-吞吐量拐点出现后系统发生了什么">5. 吞吐量拐点出现后系统发生了什么？</a></li>
+<li><a href="#6-性能测试完整流程">6. 性能测试完整流程</a></li>
+<li><a href="#7-性能测试场景怎么设计-配数值例子">7. 性能测试场景怎么设计？（配数值例子）</a></li>
+<li><a href="#8-jmeter-架构与核心组件">8. JMeter 架构与核心组件</a></li>
+<li><a href="#9-jmeter-压测一个接口的完整操作步骤">9. JMeter 压测一个接口的完整操作步骤</a></li>
+<li><a href="#10-jmeter-参数化-4-种方式">10. JMeter 参数化 4 种方式</a></li>
+<li><a href="#11-jmeter-怎么提取和传递-token">11. JMeter 怎么提取和传递 token？</a></li>
+<li><a href="#12-jmeter-分布式压测怎么做">12. JMeter 分布式压测怎么做？</a></li>
+<li><a href="#13-怎么定位性能瓶颈-完整排查链路">13. 怎么定位性能瓶颈？（完整排查链路）</a></li>
+<li><a href="#14-数据库慢导致的性能问题怎么排查和优化">14. 数据库慢导致的性能问题怎么排查和优化？</a></li>
+<li><a href="#15-常见性能问题清单及优化方向">15. 常见性能问题清单及优化方向</a></li>
+<li><a href="#16-性能测试报告要包含什么">16. 性能测试报告要包含什么？</a></li>
+<li><a href="#17-压测环境怎么保证有效性">17. 压测环境怎么保证有效性？</a></li>
+<li><a href="#18-你们资金系统的批量支付你怎么关注性能-结合场景答法">18. 你们资金系统的批量支付你怎么关注性能？（结合场景答法）</a></li>
+<li><a href="#19-接口-rt-突然从-100ms-涨到-2s-你怎么排查-场景排障题框架">19. 接口 RT 突然从 100ms 涨到 2s 你怎么排查？（场景排障题框架）</a></li>
+<li><a href="#20-测试开发岗-如果让你搭建性能监控体系-你怎么设计-进阶题">20. 测试开发岗：如果让你搭建性能监控体系，你怎么设计？（进阶题）</a></li>
+</ul>
+</li>
+<li><a href="#二-必背清单">二、必背清单</a></li>
+<li><a href="#三-实战演练-给-批量支付接口-设计压测方案">三、实战演练：给「批量支付接口」设计压测方案</a><ul>
+<li><a href="#1-明确目标-sla">1. 明确目标（SLA）</a></li>
+<li><a href="#2-环境准备">2. 环境准备</a></li>
+<li><a href="#3-脚本设计-jmeter">3. 脚本设计（JMeter）</a></li>
+<li><a href="#4-场景设计">4. 场景设计</a></li>
+<li><a href="#5-执行与监控">5. 执行与监控</a></li>
+<li><a href="#6-预期瓶颈与应对-提前预判">6. 预期瓶颈与应对（提前预判）</a></li>
+<li><a href="#7-交付物">7. 交付物</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+  <main class="content"><h1 id="题库06-性能测试与-jmeter">题库06 · 性能测试与 JMeter</h1>
+<blockquote>
+<p>适用岗位：深圳 测试开发工程师（15-20k）  |  候选人：尹胜 · 金融科技测试 4 年（保融科技 2022.11-2026.05）</p>
+</blockquote>
+<h2 id="模块说明-考频-你的王牌与软肋-怎么用本文件">模块说明（考频 / 你的王牌与软肋 / 怎么用本文件）</h2>
+<p><strong>考频</strong>：★★★★☆（测试开发岗高频，尤其资金/支付类公司必问性能，JMeter 是硬通货）</p>
+<p><strong>你的王牌（可结合讲）</strong>：
+- 资金管理系统实战：批量收付款、对账、银企直联，天然是高并发 + 资损敏感场景
+- 工具链：JMeter（压测）+ Fiddler（抓包定位）+ Docker（压测环境）+ Linux（监控）
+- 自动化背景能迁移：接口回归的四层断言、40+ 渠道数据，支撑"性能 + 功能"双视角
+- 测试开发属性：能讲"性能监控体系设计"（题 20），展示超越手工的性能思维</p>
+<p><strong>你的软肋（提前准备）</strong>：
+- 没明说有大规模分布式压测实战。诚实话术：<strong>"我用 JMeter 做过渠道接口和批量支付的压测设计与执行，分布式压测和全链路监控我有方法论和实操基础，复杂调优场景的接触深度有限，但瓶颈定位链路（压测端→网络→应用→中间件→DB）我清楚，能快速补齐。"</strong></p>
+<p><strong>怎么用本文件</strong>：
+1. 先通读 20 题，标 [x] 已掌握
+2. 重点背：第 3、4、13、18、20 题（指标/拐点/瓶颈定位/批量支付/监控体系，面试官最爱追）
+3. 最后"实战演练"是综合题，面试被要求"现场设计压测方案"时直接用</p>
+<hr />
+<h2 id="一-高频题-20-题">一、高频题（20 题）</h2>
+<h3 id="1-性能测试的目的是什么">1. 性能测试的目的是什么？</h3>
+<p><strong>【考点】</strong> 性能测试价值定位，避免"为了压测而压测"。</p>
+<p><strong>【参考答案】</strong> 性能测试核心目的有四点：① <strong>验证容量</strong>——系统能扛多少并发/吞吐，能否满足业务峰值；② <strong>发现瓶颈</strong>——定位响应慢、资源耗尽的根因；③ <strong>保障稳定</strong>——长时间运行不退化（内存泄漏/连接泄漏）；④ <strong>支撑决策</strong>——容量规划、扩容依据、SLA 达标确认。本质是用数据回答"系统快不快、稳不稳、够不够"。</p>
+<p><strong>【结合你的经验】</strong> 资金系统里批量支付、对账都是定时高负载任务，性能不达标直接影响客户代发薪资、清算时效，所以性能测试不是"锦上添花"，是资损与履约的红线。</p>
+<p><strong>【追问链】</strong> 性能和功能测试关系？→ 什么时候做性能？→ SLA 怎么定？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="2-负载-压力-容量-稳定性-尖峰测试区别">2. 负载 / 压力 / 容量 / 稳定性 / 尖峰测试区别</h3>
+<p><strong>【考点】</strong> 性能测试类型辨析，基础必问。</p>
+<p><strong>【参考答案】</strong>
+- <strong>负载测试</strong>：逐步加压到预期峰值，看系统在正常目标下的表现（找拐点前）
+- <strong>压力测试</strong>：继续加压超过峰值直到崩溃，找极限与失效点、验证降级
+- <strong>容量测试</strong>：确定最大支撑能力（如最大 TPS/用户数），用于容量规划
+- <strong>稳定性测试（ endurance）</strong>：预期负载下长时间跑（如 8-24h），查内存/连接泄漏
+- <strong>尖峰测试（spike）</strong>：瞬间剧增负载再回落，验证弹性与恢复（如秒杀）</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>目标</th>
+<th>时长</th>
+<th>负载特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>负载</td>
+<td>达标验证</td>
+<td>中</td>
+<td>渐进到峰值</td>
+</tr>
+<tr>
+<td>压力</td>
+<td>找极限</td>
+<td>短</td>
+<td>超峰值</td>
+</tr>
+<tr>
+<td>容量</td>
+<td>最大能力</td>
+<td>中</td>
+<td>极限附近</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>查泄漏</td>
+<td>长</td>
+<td>恒定中载</td>
+</tr>
+<tr>
+<td>尖峰</td>
+<td>弹性</td>
+<td>短</td>
+<td>骤增骤降</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【结合你的经验】</strong> 银企直联白天是持续中负载（稳定性关注），月末/代发日是尖峰（spike），我按这两种特征分别设计场景。</p>
+<p><strong>【追问链】</strong> 尖峰和负载区别？→ 稳定性跑多久？→ 怎么判断到极限了？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="3-核心指标详解-tps-qps-rt-并发数-错误率-资源利用率">3. 核心指标详解：TPS / QPS / RT / 并发数 / 错误率 / 资源利用率</h3>
+<p><strong>【考点】</strong> 性能指标定义与参考标准，必须张口就来。</p>
+<p><strong>【参考答案】</strong>
+- <strong>TPS（每秒事务数）</strong>：系统每秒处理的事务数，最核心吞吐指标
+- <strong>QPS（每秒查询数）</strong>：每秒查询/请求数，常等同 TPS 在接口语境
+- <strong>RT（响应时间）</strong>：单次请求耗时；关注均值、P90、P95、P99（长尾更关键）
+- <strong>并发数</strong>：同时向系统发起请求的用户/线程数
+- <strong>错误率</strong>：失败请求占比，一般要求 &lt; 0.1%~1%
+- <strong>资源利用率</strong>：CPU/内存/IO/网络/连接池占用，健康线 CPU&lt;70%、内存有冗余</p>
+<p><strong>参考标准（资金系统经验值）</strong>：</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>健康参考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RT（接口）</td>
+<td>P99 &lt; 500ms，核心 &lt; 200ms</td>
+</tr>
+<tr>
+<td>TPS</td>
+<td>按业务峰值定，如批量支付 ≥ 设计目标</td>
+</tr>
+<tr>
+<td>错误率</td>
+<td>&lt; 0.1%</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>持续 &lt; 70%</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>无持续增长（防泄漏）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【结合你的经验】</strong> 批量支付接口我重点关注 TPS（决定代发时效）和 P99 RT（避免单笔卡死整批），错误率必须近 0，因为资损不可接受。</p>
+<p><strong>【追问链】</strong> P99 为什么比均值重要？→ TPS 上不去先怀疑什么？→ 错误率突增怎么看？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="4-tps-和响应时间-并发数的关系曲线-拐点怎么理解">4. TPS 和响应时间、并发数的关系曲线（拐点怎么理解）</h3>
+<p><strong>【考点】</strong> 性能模型理解，考察是否真懂曲线。</p>
+<p><strong>【参考答案】</strong> 经典关系：
+- 低并发时，并发↑ → TPS 线性↑、RT 基本平稳（资源充足）
+- 到某点后，并发继续↑ → TPS 增速放缓、RT 开始明显上升（资源争用）
+- <strong>拐点（ knee point）</strong>：TPS 不再明显增长、RT 陡升的位置——这是系统"舒适区"上限，是容量规划基准
+- 再加压 → TPS 下降、RT 暴涨甚至错误率上升（过载崩溃）</p>
+<p>文字图：</p>
+<div class="codehilite"><pre><span></span><code>TPS
+ ↑        ___________
+ |       /           \  (过载区，TPS↓)
+ |      /   拐点→
+ |     /   (RT↑陡)
+ |    /  (线性区)
+ +---/----------------→ 并发数
+      RT 在拐点后飙升
+</code></pre></div>
+
+<p><strong>【结合你的经验】</strong> 我设计批量支付压测时，就是找这个拐点——目标不是压崩，而是确认"业务峰值并发"位于拐点左侧且留 30% 余量。</p>
+<p><strong>【追问链】</strong> 拐点怎么测得准？→ RT 和 TPS 谁优先？→ 没到拐点但错误率升了说明啥？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="5-吞吐量拐点出现后系统发生了什么">5. 吞吐量拐点出现后系统发生了什么？</h3>
+<p><strong>【考点】</strong> 拐点背后的资源机理。</p>
+<p><strong>【参考答案】</strong> 拐点之后 TPS 不涨反降、RT 飙升，本质是<strong>资源饱和 + 争用加剧</strong>：
+- CPU 跑满，上下文切换暴增，有效计算占比下降
+- 线程池/连接池耗尽，请求排队（队列积压 → RT 上升）
+- 内存压力大，GC 频繁（STW 卡顿）甚至 OOM
+- 数据库锁等待、慢 SQL 放大，成为瓶颈传导
+- 网络带宽或文件 IO 打满
+此时系统进入"越压越慢"的恶性循环，再加压只会雪崩。</p>
+<p><strong>【结合你的经验】</strong> 资金系统常见拐点是 DB 连接池耗尽——批量支付一多，连接被长事务占满，后续请求排队，RT 从 100ms 飙到秒级。所以压测我必盯连接池。</p>
+<p><strong>【追问链】</strong> 怎么确认是连接池不是 CPU？→ 队列积压怎么观测？→ 拐点能靠调参推后吗？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="6-性能测试完整流程">6. 性能测试完整流程</h3>
+<p><strong>【考点】</strong> 工程化闭环，是否走过完整性能项目。</p>
+<p><strong>【参考答案】</strong> 八步：
+1. <strong>需求分析</strong>：明确目标（TPS/RT/并发）、场景、SLA
+2. <strong>场景设计</strong>：基准/负载/压力/稳定性场景及数值
+3. <strong>脚本开发</strong>：JMeter 录/写脚本，参数化、关联、断言
+4. <strong>环境准备</strong>：独立压测环境、数据铺量、监控埋点
+5. <strong>执行压测</strong>：按场景逐步加压，记录指标
+6. <strong>监控采集</strong>：APM/系统/DB/中间件全链路监控
+7. <strong>分析调优</strong>：定位瓶颈、提优化、复测验证
+8. <strong>报告输出</strong>：结论、瓶颈、建议、风险</p>
+<p><strong>【结合你的经验】</strong> 我做渠道接口和批量支付压测就是这条链路：先定代发时效目标（SLA），再设计负载+尖峰场景，用 JMeter 压，Fiddler 辅助定位，Linux 看资源，最后出报告给研发调优。</p>
+<p><strong>【追问链】</strong> 哪步最容易漏？→ 调优谁来做？→ 复测怎么证明有效？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="7-性能测试场景怎么设计-配数值例子">7. 性能测试场景怎么设计？（配数值例子）</h3>
+<p><strong>【考点】</strong> 场景设计落地能力。</p>
+<p><strong>【参考答案】</strong> 四类场景配数值（以批量支付为例，目标峰值 200 TPS）：
+- <strong>基准场景</strong>：1-10 并发，单用户跑通，得 RT 基线（如 80ms）
+- <strong>负载场景</strong>：从 50 渐进加到 250 并发，每档稳 5 分钟，画 TPS-RT 曲线，找拐点
+- <strong>压力场景</strong>：加到 400+ 并发直到错误率 &gt;1% 或 TPS 下降，记录极限（如 320 TPS）
+- <strong>稳定性场景</strong>：180 并发（≈90% 峰值）跑 8 小时，查内存/连接是否泄漏</p>
+<p><strong>【结合你的经验】</strong> 月末代发是典型"负载+尖峰"混合：我设负载基线保日常，再叠尖峰场景模拟多家客户同时代发，验证系统弹性。</p>
+<p><strong>【追问链】</strong> 每档停留多久？→ 拐点不在设计范围怎么办？→ 稳定性必须 24h 吗？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="8-jmeter-架构与核心组件">8. JMeter 架构与核心组件</h3>
+<p><strong>【考点】</strong> JMeter 组成原理。</p>
+<p><strong>【参考答案】</strong> JMeter 是多线程模拟请求的 Java 工具，核心组件：
+- <strong>Test Plan</strong>：根容器
+- <strong>线程组（Thread Group）</strong>：并发用户数、 ramp-up、循环次数——压测的"发动机"
+- <strong>取样器（Sampler）</strong>：HTTP/FTP/JDBC 请求，发起真实调用
+- <strong>配置元件（Config）</strong>：HTTP 请求默认值、CSV 数据集、Header 管理
+- <strong>前置/后置处理器</strong>：发前造数据、收后提取（正则/JSON 提取器）
+- <strong>断言（Assertion）</strong>：校验响应，过滤错误
+- <strong>定时器（Timer）</strong>：思考时间、集合点（同步并发）
+- <strong>监听器（Listener）</strong>：结果树、聚合报告、图表
+- <strong>逻辑控制器</strong>：If/循环/事务，组织复杂场景</p>
+<p><strong>【结合你的经验】</strong> 批量支付压测我用线程组控并发、HTTP 取样器发请求、CSV 参数化账号、JSON 提取器取 token、聚合报告看 TPS/RT——是标准 JMeter 组合。</p>
+<p><strong>【追问链】</strong> 线程数和并发数等价吗？→ 集合点干嘛用？→ 监听器太多为什么影响性能？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="9-jmeter-压测一个接口的完整操作步骤">9. JMeter 压测一个接口的完整操作步骤</h3>
+<p><strong>【考点】</strong> 实操熟练度。</p>
+<p><strong>【参考答案】</strong> 步骤：
+1. 新建 <strong>Test Plan</strong> → 加 <strong>线程组</strong>（设并发、ramp-up、循环）
+2. 加 <strong>HTTP 请求默认值</strong>（base_url）+ <strong>HTTP Header 管理器</strong>（Content-Type/token）
+3. 加 <strong>HTTP 请求（Sampler）</strong>：填路径、方法、Body
+4. （需登录）加 <strong>登录请求</strong> + <strong>JSON 提取器</strong> 取 token，用 <strong>后置处理器</strong> 写入变量
+5. 加 <strong>CSV Data Set Config</strong> 参数化（账号/金额）
+6. 加 <strong>断言</strong>（响应码/业务码）过滤失败
+7. 加 <strong>聚合报告 / 查看结果树</strong> 监听器
+8. 调 <strong>ramp-up</strong> 渐进加压，命令行 <code>jmeter -n -t xx.jmx -l result.jtl</code> 跑，出 HTML 报告</p>
+<p><strong>【结合你的经验】</strong> 我压渠道查询接口就用这套：Header 带 token、CSV 铺多账号、聚合报告盯 TPS 和 P99，命令行跑避免 GUI 耗资源。</p>
+<p><strong>【追问链】</strong> 为什么用命令行不用 GUI？→ ramp-up 设多少合适？→ 结果树生产能开吗？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="10-jmeter-参数化-4-种方式">10. JMeter 参数化 4 种方式</h3>
+<p><strong>【考点】</strong> 数据驱动压测能力。</p>
+<p><strong>【参考答案】</strong> 四种：
+1. <strong>CSV Data Set Config</strong>：最常用，外部 CSV 读账号/金额等，支持多列、循环
+2. <strong>用户参数（User Parameters）</strong>：线程组级变量，适合少量定值
+3. <strong>函数助手（__Random/__time/__UUID）</strong>：动态生成随机数、时间戳、唯一流水号
+4. <strong>前置/BeanShell/Groovy</strong>：脚本生成复杂数据（如签名、加密报文）</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSV</td>
+<td>大批量真实数据</td>
+</tr>
+<tr>
+<td>用户参数</td>
+<td>少量定值</td>
+</tr>
+<tr>
+<td>函数</td>
+<td>随机/时间戳/UUID</td>
+</tr>
+<tr>
+<td>脚本</td>
+<td>加密/签名/复杂逻辑</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【结合你的经验】</strong> 批量支付压测我用 CSV 铺多账户多金额，用 <code>__time</code>/<code>__UUID</code> 生成唯一批次号和流水号，避免重复提交和幂等拦截干扰压测数据。</p>
+<p><strong>【追问链】</strong> CSV 不够随机怎么办？→ 唯一流水号为什么重要？→ 签名报文怎么参数化？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="11-jmeter-怎么提取和传递-token">11. JMeter 怎么提取和传递 token？</h3>
+<p><strong>【考点】</strong> 关联（correlation）实操，压测登录态接口必会。</p>
+<p><strong>【参考答案】</strong> 两步：
+1. <strong>提取</strong>：在登录请求后加 <strong>后置处理器</strong>
+   - <strong>JSON 提取器</strong>：<code>$.data.token</code> → 存变量 <code>token</code>
+   - <strong>正则提取器</strong>：<code>"token":"(.+?)"</code> → 变量（非 JSON 时用）
+2. <strong>传递</strong>：后续请求 Header 管理器写 <code>Authorization: Bearer ${token}</code>，或用变量引用</p>
+<div class="codehilite"><pre><span></span><code>登录 HTTP 请求
+  └─ JSON 提取器: names=token, expr=$.data.token
+业务 HTTP 请求
+  └─ HTTP Header: Authorization = Bearer ${token}
+</code></pre></div>
+
+<p><strong>【结合你的经验】</strong> 渠道接口都要鉴权，我每个压测脚本都先登录提取 token 再并发跑业务，否则全 401，压测无意义。</p>
+<p><strong>【追问链】</strong> 多个 token 怎么处理？→ token 过期压测中途失效怎么办？→ 分布式下变量共享吗？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="12-jmeter-分布式压测怎么做">12. JMeter 分布式压测怎么做？</h3>
+<p><strong>【考点】</strong> 大并发压测扩展能力。</p>
+<p><strong>【参考答案】</strong> 单机线程有限（CPU/端口瓶颈），需多机分担：
+1. 选 1 台 <strong>Master</strong>（控制）+ N 台 <strong>Slave（Agent）</strong>
+2. 所有机装同版本 JMeter，Slave 开 <code>jmeter-server</code>
+3. Master 的 <code>jmeter.properties</code> 配 <code>remote_hosts=ip1:1099,ip2:1099</code>
+4. 执行 <code>jmeter -n -r -t xx.jmx -l result.jtl</code>（<code>-r</code> 调远程）
+5. 结果汇总回 Master
+注意：参数化 CSV 各 Slave 都要有；保证网络互通；Slave 数量按总并发/单机能力估。</p>
+<p><strong>【结合你的经验】</strong> 我了解分布式架构和配置，批量支付要上千并发时单机压不动，会用 Slave 分担；我实操以单机+合理线程为主，分布式有方法论和配置基础。</p>
+<p><strong>【追问链】</strong> 分布式结果怎么聚合？→ Slave 要多少台？→ CSV 各机怎么同步？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="13-怎么定位性能瓶颈-完整排查链路">13. 怎么定位性能瓶颈？（完整排查链路）</h3>
+<p><strong>【考点】</strong> 瓶颈定位体系，性能面试核心。</p>
+<p><strong>【参考答案】</strong> 自顶向下全链路排查：</p>
+<div class="codehilite"><pre><span></span><code>压测端 → 网络 → 应用 → 中间件 → 数据库
+</code></pre></div>
+
+<ul>
+<li><strong>压测端</strong>：是否自身瓶颈（CPU 满/端口耗尽）→ 加 Slave 或降监听开销</li>
+<li><strong>网络</strong>：带宽/延迟/丢包 → <code>ping</code>/<code>iperf</code>/<code>tcpdump</code></li>
+<li><strong>应用</strong>：CPU/内存/线程/GC → <code>top</code>/<code>jstack</code>/<code>jstat</code>、APM（SkyWalking）</li>
+<li><strong>中间件</strong>：Nginx/Tomcat 线程池、MQ 堆积、Redis 命中率/慢命令</li>
+<li><strong>数据库</strong>：连接池、慢 SQL、锁等待、索引 → <code>slow log</code>/<code>explain</code>/<code>show processlist</code></li>
+</ul>
+<p>每环用对应工具，定位到"哪一层先到瓶颈"，再深挖该层。</p>
+<p><strong>【结合你的经验】</strong> 我定位批量支付慢，先排除压测端（命令行跑），再看应用 CPU 正常但 DB 连接池占满 → 是数据库慢 SQL + 连接未释放，典型的"中间件→DB"链路问题。</p>
+<p><strong>【追问链】</strong> 怎么确认是应用不是 DB？→ APM 怎么看调用链？→ 没有 APM 怎么查？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="14-数据库慢导致的性能问题怎么排查和优化">14. 数据库慢导致的性能问题怎么排查和优化？</h3>
+<p><strong>【考点】</strong> DB 性能，资金系统高频瓶颈。</p>
+<p><strong>【参考答案】</strong> 排查：
+1. 开 <strong>慢查询日志</strong> <code>slow_query_log</code>，定位慢 SQL
+2. <code>EXPLAIN</code> 看执行计划：是否全表扫描、是否用索引、rows 预估
+3. <code>SHOW PROCESSLIST</code> 看是否有锁等待、长事务、连接堆积
+4. 看<strong>连接池</strong>配置（maxActive）是否被占满</p>
+<p>优化：
+- 加/调 <strong>索引</strong>（联合索引最左匹配），避免索引失效（函数/隐式转换）
+- 改写 SQL：减少 <code>SELECT *</code>、避免 <code>IN</code> 超大、分页优化
+- 减少长事务，及时 <strong>commit</strong> 释放连接
+- 读写分离、分库分表（海量流水）
+- 缓存热点（Redis）降 DB 压力</p>
+<p><strong>【结合你的经验】</strong> 对账/明细查询慢常因缺索引或分页深；我压测时用 <code>explain</code> 帮研发定位过全表扫描的流水查询，加联合索引后 RT 从秒级降到百毫秒。</p>
+<p><strong>【追问链】</strong> 索引为什么失效？→ 连接池满怎么临时缓解？→ 冷热数据怎么分？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="15-常见性能问题清单及优化方向">15. 常见性能问题清单及优化方向</h3>
+<p><strong>【考点】</strong> 问题库广度，体现实战积累。</p>
+<p><strong>【参考答案】</strong></p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>现象</th>
+<th>优化方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连接池满</td>
+<td>RT 飙升、大量等待</td>
+<td>调大池 / 缩短占用 / 查泄漏</td>
+</tr>
+<tr>
+<td>GC 频繁</td>
+<td>周期性卡顿（STW）</td>
+<td>调堆、换 GC 算法、减大对象</td>
+</tr>
+<tr>
+<td>锁等待</td>
+<td>事务互相等</td>
+<td>缩事务、优化索引、降粒度</td>
+</tr>
+<tr>
+<td>索引缺失</td>
+<td>慢 SQL、CPU 高</td>
+<td>建索引、避免失效</td>
+</tr>
+<tr>
+<td>缓存击穿</td>
+<td>DB 瞬时被打满</td>
+<td>互斥重建 / 热点不过期</td>
+</tr>
+<tr>
+<td>线程阻塞</td>
+<td>吞吐上不去</td>
+<td>异步化、降同步锁</td>
+</tr>
+<tr>
+<td>带宽打满</td>
+<td>网络延迟高</td>
+<td>压缩、就近、限流</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【结合你的经验】</strong> 银企直联最怕"连接池满 + 锁等待"组合——批量支付长事务占连接，别的请求排队。我压测必盯连接池和锁，提前暴露。</p>
+<p><strong>【追问链】</strong> 缓存雪崩 vs 击穿区别？→ 锁等待怎么观测？→ 线程阻塞怎么定位？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="16-性能测试报告要包含什么">16. 性能测试报告要包含什么？</h3>
+<p><strong>【考点】</strong> 交付物完整性。</p>
+<p><strong>【参考答案】</strong> 一份合格报告含：
+1. <strong>测试目标与范围</strong>：接口/场景、SLA 指标
+2. <strong>环境说明</strong>：压测/被压环境配置、数据量、版本
+3. <strong>场景与结果</strong>：各场景 TPS/RT(P90/P99)/错误率/并发曲线
+4. <strong>资源监控</strong>：CPU/内存/IO/连接池/DB 指标图
+5. <strong>瓶颈分析</strong>：定位结论 + 根因
+6. <strong>调优建议</strong>：具体改什么（索引/连接池/缓存）
+7. <strong>结论与风险</strong>：是否达标、遗留风险、上线建议</p>
+<p><strong>【结合你的经验】</strong> 我出的压测报告重点给"是否达代发时效 SLA + 拐点位置 + 一个最优先调优项"，让研发一眼知道改哪。</p>
+<p><strong>【追问链】</strong> 报告给谁看？→ 不达标怎么写结论？→ 曲线图怎么解读？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="17-压测环境怎么保证有效性">17. 压测环境怎么保证有效性？</h3>
+<p><strong>【考点】</strong> 压测可靠性基础，易踩坑点。</p>
+<p><strong>【参考答案】</strong> 三原则：
+- <strong>数据量等价</strong>：压测库数据量要接近生产（小表压测结果无参考），批量支付要铺足流水
+- <strong>环境隔离</strong>：独立压测环境，不压生产、不压共用环境，避免影响真实业务和监控干扰
+- <strong>监控完备</strong>：压测端 + 被压端 + 中间件 + DB 全埋点，否则不知瓶颈在哪
+- 另外：网络同机房/同规格，配置与生产一致（JVM/连接池/DB 参数），避免"环境差异导致结论失真"</p>
+<p><strong>【结合你的经验】</strong> 我用 Docker 起独立压测环境并铺足量历史流水，保证批量支付的表数据量和索引状态和准生产一致，结果才可信。</p>
+<p><strong>【追问链】</strong> 不能压生产怎么办验证真实？→ 数据怎么铺？→ 配置不一致后果？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="18-你们资金系统的批量支付你怎么关注性能-结合场景答法">18. 你们资金系统的批量支付你怎么关注性能？（结合场景答法）</h3>
+<p><strong>【考点】</strong> 业务结合性能，你的差异化优势。</p>
+<p><strong>【参考答案】</strong> 批量支付是资金系统性能核心场景，我关注四件事：
+1. <strong>吞吐（TPS）</strong>：决定代发/清算时效，目标按客户峰值定，且留 30% 余量
+2. <strong>P99 RT</strong>：单笔卡死会拖整批，长尾比均值关键
+3. <strong>错误率 ≈ 0</strong>：资损不可接受，任何失败要有可溯源的回执
+4. <strong>资源拐点</strong>：压测找 DB 连接池/慢 SQL 拐点，避免月末尖峰过载</p>
+<p>场景上：日常负载（稳定性）+ 月末多家同时代发（尖峰 spike），用 JMeter 渐进加压找拐点。</p>
+<p><strong>【结合你的经验】</strong> 我对接 40+ 渠道、维护 1900+ 用例，批量支付是回归重点；压测我发现过"长事务占满连接池"导致 RT 从 100ms 飙到秒级，推动研发缩事务+调池，恢复。</p>
+<p><strong>【追问链】</strong> 批次内部分失败怎么处理？→ 尖峰怎么模拟？→ 资损和性能怎么平衡？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="19-接口-rt-突然从-100ms-涨到-2s-你怎么排查-场景排障题框架">19. 接口 RT 突然从 100ms 涨到 2s 你怎么排查？（场景排障题框架）</h3>
+<p><strong>【考点】</strong> 应急排障思维，现场推理能力。</p>
+<p><strong>【参考答案】</strong> 按"由近及远"快速定位：
+1. <strong>是不是普遍</strong>：单接口还是全局？单接口→该接口链路；全局→公共依赖（DB/缓存/网络）
+2. <strong>看依赖</strong>：DB 慢 SQL？缓存击穿？第三方（银行渠道）变慢？MQ 堆积？
+3. <strong>看资源</strong>：应用 CPU/内存/GC 是否异常；连接池是否打满
+4. <strong>看变更</strong>：近期是否发版/调参/数据量暴涨
+5. <strong>工具</strong>：<code>top</code>/<code>jstack</code> 看线程；<code>slow log</code>+<code>explain</code> 看 SQL；<code>tcpdump</code> 看网络；APM 看调用链</p>
+<p><strong>【结合你的经验】</strong> 渠道接口 RT 突增，我第一反应查"银行侧返回变慢 or 本机连接池满"。曾有一次是慢 SQL 全表扫流水表导致，加索引即恢复——所以排障先怀疑最高频瓶颈。</p>
+<p><strong>【追问链】</strong> 怎么区分偶发和持续？→ 没监控怎么查？→ 生产能直接压吗？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h3 id="20-测试开发岗-如果让你搭建性能监控体系-你怎么设计-进阶题">20. 测试开发岗：如果让你搭建性能监控体系，你怎么设计？（进阶题）</h3>
+<p><strong>【考点】</strong> 测试开发思维上限，展示体系化能力。</p>
+<p><strong>【参考答案】</strong> 我设计四层监控体系：
+1. <strong>基础设施层</strong>：Node Exporter + Prometheus 采 CPU/内存/IO/网络，Grafana 看板
+2. <strong>应用层</strong>：JVM（Micrometer/Actuator）暴露 QPS/RT/线程/GC，链路追踪 SkyWalking 看调用耗时
+3. <strong>中间件层</strong>：Redis（命中率/慢命令）、MQ（堆积）、Tomcat（线程池/连接）指标
+4. <strong>数据库层</strong>：慢查询、连接池、锁等待、QPS，配告警阈值</p>
+<p>再加 <strong>告警（Alertmanager）</strong> + <strong>压测基线对比</strong>（每次压测结果入库，趋势退化自动预警）。
+价值：从"事后救火"变"事前预警"，性能左移。</p>
+<p><strong>【结合你的经验】</strong> 我的测试开发属性（FastAPI 自研工具、Docker、Linux）能支撑这套体系落地；环境信息模块管的就是"环境配置资产"，可作为监控体系的元数据来源，形成"配置-压测-监控"闭环。</p>
+<p><strong>【追问链】</strong> Prometheus 和 APM 什么关系？→ 告警阈值怎么定？→ 怎么接 CI 做性能门禁？</p>
+<p>[ ] 已掌握</p>
+<hr />
+<h2 id="二-必背清单">二、必背清单</h2>
+<p><strong>【核心指标一句话】</strong>
+- TPS=每秒事务数（吞吐核心）；RT 看 P99 不看均值；并发数≠线程数；错误率资金系统近 0；CPU 健康 &lt; 70%</p>
+<p><strong>【拐点记忆】</strong>
+- 拐点前：并发↑ TPS↑ RT 稳；拐点后：TPS 滞涨 RT 飙升；拐点=容量基准，目标负载留 30% 余量</p>
+<p><strong>【JMeter 实操口诀】</strong>
+- 线程组控并发 → Header 带 token → CSV 铺数据 → JSON 提取器取 token → 断言过滤 → 命令行跑 → 聚合报告看 TPS/P99
+- 参数化 4 种：CSV / 用户参数 / 函数(__Random __time __UUID) / 脚本
+- 分布式：Master+Slave，remote_hosts 配 IP，<code>-r</code> 调远程</p>
+<p><strong>【瓶颈定位链路（必背）】</strong>
+- 压测端 → 网络 → 应用(CPU/GC/线程) → 中间件(连接池/MQ/Redis) → 数据库(慢SQL/锁/连接池)
+- 每环工具：top/jstack/jstat、iperf/tcpdump、slow log/explain/processlist、SkyWalking</p>
+<p><strong>【资金系统性能重点】</strong>
+- 批量支付：盯 TPS（时效）+ P99 RT（长尾）+ 错误率(≈0) + DB 连接池拐点
+- 场景：日常负载 + 月末尖峰(spike)
+- 常见坑：长事务占满连接池、慢 SQL 全表扫、锁等待</p>
+<p><strong>【诚实话术】</strong>
+- "JMeter 压测设计与执行我实战过（渠道接口+批量支付）；分布式压测和全链路 APM 调优我有方法论和配置基础，复杂场景深度在补齐中，但瓶颈定位链路我完全清楚。"</p>
+<hr />
+<h2 id="三-实战演练-给-批量支付接口-设计压测方案">三、实战演练：给「批量支付接口」设计压测方案</h2>
+<blockquote>
+<p>面试被要求"现场设计压测方案"时，按下面结构讲，约 3 分钟，体现测试开发专业度。</p>
+</blockquote>
+<h3 id="1-明确目标-sla">1. 明确目标（SLA）</h3>
+<ul>
+<li>业务背景：资金系统代发薪资/批量代付，月末多客户并发</li>
+<li>性能目标（示例）：峰值 <strong>200 TPS</strong>，P99 RT &lt; 500ms，错误率 &lt; 0.1%</li>
+<li>容量余量：按峰值 130% 设计，即按 260 TPS 验证不退化</li>
+</ul>
+<h3 id="2-环境准备">2. 环境准备</h3>
+<ul>
+<li>独立压测环境（Docker 起，配置等同准生产：JVM/连接池/DB 参数一致）</li>
+<li>铺足量流水数据（百万级，避免小表失真）</li>
+<li>监控全开：Prometheus+Grafana（资源）、SkyWalking（链路）、slow log（DB）</li>
+</ul>
+<h3 id="3-脚本设计-jmeter">3. 脚本设计（JMeter）</h3>
+<ul>
+<li>线程组：并发梯度 50→100→200→300→400，ramp-up 逐步加压，每档稳 5 分钟</li>
+<li>HTTP 取样器：批量支付接口，Body 含批次号+多明细</li>
+<li><strong>关联</strong>：登录提取 token → Header 携带</li>
+<li><strong>参数化</strong>：CSV 铺付款账号/金额；<code>__UUID</code> 生成唯一批次号（防幂等拦截）</li>
+<li><strong>断言</strong>：响应码 200 + 业务码成功 + 回执字段存在</li>
+<li>定时器：加思考时间模拟真实节奏</li>
+</ul>
+<h3 id="4-场景设计">4. 场景设计</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>并发</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基准</td>
+<td>10</td>
+<td>得 RT 基线</td>
+</tr>
+<tr>
+<td>负载</td>
+<td>50→260</td>
+<td>画 TPS-RT 曲线，找拐点</td>
+</tr>
+<tr>
+<td>压力</td>
+<td>300→400+</td>
+<td>找极限、验证降级</td>
+</tr>
+<tr>
+<td>尖峰</td>
+<td>骤增到 300 再回落</td>
+<td>验证弹性恢复</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>200（≈峰值）跑 8h</td>
+<td>查连接/内存泄漏</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-执行与监控">5. 执行与监控</h3>
+<ul>
+<li>命令行 <code>jmeter -n -t batch_pay.jmx -l r.jtl -e -o report/</code> 出 HTML 报告</li>
+<li>实时监控：TPS/RT(P90/P99)/错误率 + DB 连接池/CPU/慢 SQL</li>
+</ul>
+<h3 id="6-预期瓶颈与应对-提前预判">6. 预期瓶颈与应对（提前预判）</h3>
+<ul>
+<li><strong>DB 连接池满</strong>：长事务占连接 → 缩事务 + 调大池 + 连接及时释放</li>
+<li><strong>慢 SQL</strong>：流水表全表扫 → 加联合索引、分页优化</li>
+<li><strong>锁等待</strong>：批次号/账户锁 → 降锁粒度、异步化</li>
+</ul>
+<h3 id="7-交付物">7. 交付物</h3>
+<ul>
+<li>压测报告：目标达成情况、拐点位置、资源曲线、Top1 调优项</li>
+<li>结论：是否达代发时效 SLA、能否支撑月末尖峰、上线建议与风险</li>
+</ul>
+<blockquote>
+<p>讲法要点：先定 SLA → 再环境/脚本 → 五场景覆盖 → 监控兜底 → 预判瓶颈 → 出报告。这套结构展示"不仅会用工具，更懂性能工程"，是测试开发岗的高分答法。</p>
+</blockquote></main>
+</div>
+<footer class="foot">求职驾驶舱 · 尹胜 · 测试开发冲刺 2026.10 ｜ <a href="index.html">返回仪表盘</a></footer>
+</body>
+</html>

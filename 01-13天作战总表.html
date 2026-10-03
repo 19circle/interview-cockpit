@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · 13 天作战总表（2026.10.03 - 10.15） · 求职驾驶舱</title>
+<meta name="description" content="尹胜 · 测试开发工程师社招面试准备材料">
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1d2638; --line:#2a3550; --line2:#232d44;
+  --txt:#e8edf7; --sub:#93a1bd; --dim:#5b6a8a;
+  --gold:#e8b04b; --green:#4ec98a; --blue:#5b9cf5; --red:#e05d5d; --teal:#45c4b0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:"Cascadia Code",Consolas,"Courier New",monospace}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  background:rgba(23,30,46,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:11px 22px;flex-wrap:wrap}
+.topbar .back{font-size:13.5px;font-weight:600;background:var(--panel2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:8px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--gold);text-decoration:none}
+.topbar .crumb{flex:1;font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:120px}
+.topbar .raw{font-size:12.5px;color:var(--dim);border:1px solid var(--line);padding:4px 11px;border-radius:8px;white-space:nowrap}
+.topbar .raw:hover{color:var(--gold);border-color:var(--gold);text-decoration:none}
+
+.shell{max-width:1220px;margin:0 auto;padding:22px 22px 70px;display:grid;
+  grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:940px){.shell{grid-template-columns:1fr;gap:14px;padding:14px 13px 50px}}
+
+.toc{position:sticky;top:74px;max-height:calc(100vh - 96px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.toc-title{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:9px;font-weight:700}
+.toc ul{list-style:none;padding-left:0}
+.toc li{margin:1px 0}
+.toc a{color:var(--sub);display:block;padding:3px 0;line-height:1.5;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{color:var(--gold);text-decoration:none}
+.toc ul ul{padding-left:10px}
+.toc ul ul a{font-size:12.3px;color:var(--dim)}
+@media(max-width:940px){.toc{position:static;max-height:none;border-radius:10px}
+  .toc ul{max-height:230px;overflow:auto}}
+
+.content{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:30px 36px 40px;min-width:0;overflow-wrap:break-word}
+@media(max-width:940px){.content{padding:20px 17px 30px;font-size:14.5px}}
+.content>*:first-child{margin-top:0}
+.content h1{font-size:25px;color:var(--gold);padding-bottom:12px;border-bottom:2px solid var(--line);
+  margin:6px 0 20px;line-height:1.4}
+.content h2{font-size:19.5px;margin:34px 0 13px;padding-left:12px;border-left:4px solid var(--gold);line-height:1.45}
+.content h3{font-size:16.5px;margin:24px 0 9px;color:var(--blue)}
+.content h4{font-size:15px;margin:18px 0 7px;color:var(--teal)}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0 10px 4px;padding-left:22px}
+.content li{margin:5px 0}
+.content strong{color:#fff;font-weight:700}
+.content em{color:var(--gold);font-style:normal}
+.content hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.content blockquote{margin:14px 0;padding:10px 17px;background:rgba(232,176,75,.06);
+  border-left:3px solid var(--gold);border-radius:0 8px 8px 0;color:var(--sub)}
+.content blockquote p{margin:5px 0}
+
+.content code:not(.codehilite code){background:var(--panel2);color:var(--gold);
+  padding:1.5px 6px;border-radius:5px;font-size:13.2px;border:1px solid var(--line)}
+
+.codehilite{background:#12172a;border:1px solid var(--line);border-radius:10px;
+  margin:14px 0;overflow:auto;font-size:13.2px;line-height:1.65}
+.codehilite pre{margin:0;padding:14px 17px;background:transparent!important}
+.content pre:not(.codehilite pre){background:#12172a;border:1px solid var(--line);border-radius:10px;
+  padding:14px 17px;overflow:auto;font-size:13.2px;margin:14px 0}
+
+.content table{border-collapse:collapse;margin:15px 0;font-size:13.6px;width:100%}
+.content thead th{background:var(--panel2);color:var(--txt);font-weight:700;text-align:left;
+  padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+.content tbody td{padding:8px 12px;border:1px solid var(--line2);vertical-align:top}
+.content tbody tr:nth-child(even){background:rgba(255,255,255,.017)}
+.content tbody tr:hover{background:rgba(232,176,75,.05)}
+.tblwrap{overflow-x:auto;margin:15px 0}
+
+.foot{max-width:1220px;margin:0 auto;padding:0 22px 40px;color:var(--dim);font-size:12.3px;text-align:center}
+@media(max-width:940px){.foot{padding:0 13px 30px}}
+
+/* pygments */
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #F8F8F2 }
+.codehilite .c { color: #959077 } /* Comment */
+.codehilite .err { color: #ED007E; background-color: #1E0010 } /* Error */
+.codehilite .esc { color: #F8F8F2 } /* Escape */
+.codehilite .g { color: #F8F8F2 } /* Generic */
+.codehilite .k { color: #66D9EF } /* Keyword */
+.codehilite .l { color: #AE81FF } /* Literal */
+.codehilite .n { color: #F8F8F2 } /* Name */
+.codehilite .o { color: #FF4689 } /* Operator */
+.codehilite .x { color: #F8F8F2 } /* Other */
+.codehilite .p { color: #F8F8F2 } /* Punctuation */
+.codehilite .ch { color: #959077 } /* Comment.Hashbang */
+.codehilite .cm { color: #959077 } /* Comment.Multiline */
+.codehilite .cp { color: #959077 } /* Comment.Preproc */
+.codehilite .cpf { color: #959077 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #959077 } /* Comment.Single */
+.codehilite .cs { color: #959077 } /* Comment.Special */
+.codehilite .gd { color: #FF4689 } /* Generic.Deleted */
+.codehilite .ge { color: #F8F8F2; font-style: italic } /* Generic.Emph */
+.codehilite .ges { color: #F8F8F2; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #FF4689 } /* Generic.Error */
+.codehilite .gh { color: #F8F8F2 } /* Generic.Heading */
+.codehilite .gi { color: #A6E22E } /* Generic.Inserted */
+.codehilite .go { color: #66D9EF } /* Generic.Output */
+.codehilite .gp { color: #FF4689; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #F8F8F2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #959077 } /* Generic.Subheading */
+.codehilite .gt { color: #66D9EF } /* Generic.Traceback */
+.codehilite .kc { color: #66D9EF } /* Keyword.Constant */
+.codehilite .kd { color: #66D9EF } /* Keyword.Declaration */
+.codehilite .kn { color: #FF4689 } /* Keyword.Namespace */
+.codehilite .kp { color: #66D9EF } /* Keyword.Pseudo */
+.codehilite .kr { color: #66D9EF } /* Keyword.Reserved */
+.codehilite .kt { color: #66D9EF } /* Keyword.Type */
+.codehilite .ld { color: #E6DB74 } /* Literal.Date */
+.codehilite .m { color: #AE81FF } /* Literal.Number */
+.codehilite .s { color: #E6DB74 } /* Literal.String */
+.codehilite .na { color: #A6E22E } /* Name.Attribute */
+.codehilite .nb { color: #A6E22E } /* Name.Builtin */
+.codehilite .nc { color: #A6E22E } /* Name.Class */
+.codehilite .no { color: #66D9EF } /* Name.Constant */
+.codehilite .nd { color: #A6E22E } /* Name.Decorator */
+.codehilite .ni { color: #F8F8F2 } /* Name.Entity */
+.codehilite .ne { color: #A6E22E } /* Name.Exception */
+.codehilite .nf { color: #A6E22E } /* Name.Function */
+.codehilite .nl { color: #F8F8F2 } /* Name.Label */
+.codehilite .nn { color: #F8F8F2 } /* Name.Namespace */
+.codehilite .nx { color: #A6E22E } /* Name.Other */
+.codehilite .py { color: #F8F8F2 } /* Name.Property */
+.codehilite .nt { color: #FF4689 } /* Name.Tag */
+.codehilite .nv { color: #F8F8F2 } /* Name.Variable */
+.codehilite .ow { color: #FF4689 } /* Operator.Word */
+.codehilite .pm { color: #F8F8F2 } /* Punctuation.Marker */
+.codehilite .w { color: #F8F8F2 } /* Text.Whitespace */
+.codehilite .mb { color: #AE81FF } /* Literal.Number.Bin */
+.codehilite .mf { color: #AE81FF } /* Literal.Number.Float */
+.codehilite .mh { color: #AE81FF } /* Literal.Number.Hex */
+.codehilite .mi { color: #AE81FF } /* Literal.Number.Integer */
+.codehilite .mo { color: #AE81FF } /* Literal.Number.Oct */
+.codehilite .sa { color: #E6DB74 } /* Literal.String.Affix */
+.codehilite .sb { color: #E6DB74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #E6DB74 } /* Literal.String.Char */
+.codehilite .dl { color: #E6DB74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #E6DB74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #E6DB74 } /* Literal.String.Double */
+.codehilite .se { color: #AE81FF } /* Literal.String.Escape */
+.codehilite .sh { color: #E6DB74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #E6DB74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #E6DB74 } /* Literal.String.Other */
+.codehilite .sr { color: #E6DB74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #E6DB74 } /* Literal.String.Single */
+.codehilite .ss { color: #E6DB74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #A6E22E } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #A6E22E } /* Name.Function.Magic */
+.codehilite .vc { color: #F8F8F2 } /* Name.Variable.Class */
+.codehilite .vg { color: #F8F8F2 } /* Name.Variable.Global */
+.codehilite .vi { color: #F8F8F2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #F8F8F2 } /* Name.Variable.Magic */
+.codehilite .il { color: #AE81FF } /* Literal.Number.Integer.Long */</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="index.html">← 驾驶舱</a>
+  <span class="crumb">01 · 13 天作战总表（2026.10.03 - 10.15）</span>
+  <a class="raw" href="01-13天作战总表.md">原始 Markdown</a>
+</header>
+<div class="shell">
+  <aside class="toc"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#01-13-天作战总表-2026-10-03-10-15">01 · 13 天作战总表（2026.10.03 - 10.15）</a><ul>
+<li><a href="#阶段-0-材料定稿-投递预热-day1-3-10-03-10-05">阶段 0 · 材料定稿 + 投递预热（Day1-3：10.03-10.05）</a><ul>
+<li><a href="#day-1-10-03-周六-今天-材料地基日">Day 1｜10.03 周六｜今天：材料地基日</a></li>
+<li><a href="#day-2-10-04-周日-首批投递启动">Day 2｜10.04 周日｜首批投递启动 📮</a></li>
+<li><a href="#day-3-10-05-周一-测试理论收口">Day 3｜10.05 周一｜测试理论收口</a></li>
+</ul>
+</li>
+<li><a href="#阶段-1-技术主攻-day4-6-10-06-10-08">阶段 1 · 技术主攻（Day4-6：10.06-10.08）</a><ul>
+<li><a href="#day-4-10-06-周二-python-与-pytest-决战日">Day 4｜10.06 周二｜Python 与 pytest 决战日</a></li>
+<li><a href="#day-5-10-07-周三-sql-linux-双线日-假期最后一天-明早开投高峰">Day 5｜10.07 周三｜SQL + Linux 双线日（假期最后一天，明早开投高峰）</a></li>
+<li><a href="#day-6-10-08-周四-投递峰值日-自动化框架日">Day 6｜10.08 周四｜⚡ 投递峰值日 + 自动化框架日</a></li>
+</ul>
+</li>
+<li><a href="#阶段-2-项目深挖-话术-day7-9-10-09-10-11">阶段 2 · 项目深挖 + 话术（Day7-9：10.09-10.11）</a><ul>
+<li><a href="#day-7-10-09-周五-项目深挖日-面试邀约可能开始出现">Day 7｜10.09 周五｜项目深挖日（面试邀约可能开始出现）</a></li>
+<li><a href="#day-8-10-10-周六-调休上班日-再投-30-家-hr-话术日">Day 8｜10.10 周六｜⚡ 调休上班日：再投 30 家 + HR 话术日</a></li>
+<li><a href="#day-9-10-11-周日-模拟面试日">Day 9｜10.11 周日｜模拟面试日</a></li>
+</ul>
+</li>
+<li><a href="#阶段-3-实战-day10-13-10-12-10-15">阶段 3 · 实战（Day10-13：10.12-10.15）</a><ul>
+<li><a href="#day-10-10-12-周一-实战启动日-面试邀约高发期开始">Day 10｜10.12 周一｜实战启动日（面试邀约高发期开始）</a></li>
+<li><a href="#day-11-10-13-周二-实战迭代">Day 11｜10.13 周二｜实战迭代</a></li>
+<li><a href="#day-12-10-14-周三-实战迭代">Day 12｜10.14 周三｜实战迭代</a></li>
+<li><a href="#day-13-10-15-周四-阶段收束">Day 13｜10.15 周四｜阶段收束</a></li>
+</ul>
+</li>
+<li><a href="#附-投递量目标追踪">附：投递量目标追踪</a></li>
+<li><a href="#附-每日打卡速查">附：每日打卡速查</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+  <main class="content"><h1 id="01-13-天作战总表-2026-10-03-10-15">01 · 13 天作战总表（2026.10.03 - 10.15）</h1>
+<blockquote>
+<p>每天固定三块：<strong>块A 输入</strong>（上午 9:00-11:30，2.5h）｜<strong>块B 输出</strong>（下午 14:00-16:00，2h）｜<strong>块C 复盘背诵</strong>（晚上 20:00-21:30，1.5h）
+时间可整体平移，但三块的<strong>顺序和时长</strong>尽量保持。块C 必须开口/录音，看 ≠ 会。</p>
+</blockquote>
+<p><strong>图例</strong>：📚=题库（编号如 T01-Q12 = 题库01第12题）｜🗣️=开口练 ｜📮=投递动作</p>
+<hr />
+<h2 id="阶段-0-材料定稿-投递预热-day1-3-10-03-10-05">阶段 0 · 材料定稿 + 投递预热（Day1-3：10.03-10.05）</h2>
+<h3 id="day-1-10-03-周六-今天-材料地基日">Day 1｜10.03 周六｜今天：材料地基日</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td><strong>简历定稿（2 处必修）</strong> + 通读策略文档</td>
+<td>① 工作经历改为 <code>2022.11 - 2026.05</code>（按实际离职日）② 加一行<code>求职意向：测试开发工程师｜期望城市：深圳</code>；通读《社招自我介绍与求职策略》全篇</td>
+</tr>
+<tr>
+<td>块B</td>
+<td><strong>投递账号完善</strong></td>
+<td>BOSS：头像/在线状态开/期望职位设 3 个（测试开发/自动化测试/质量保障）；猎聘：完善简历+开猎头可见；写好打招呼话术（抄 <code>05-投递台账</code> 第五章，改 2 处个性化）</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>自我介绍 3 版本首背</td>
+<td>2min 版先通读 3 遍 → 关键词提示卡 → 录音自述 1 遍对比原稿；30s 版直接脱稿</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：终版简历 PDF、可用的 BOSS/猎聘账号、自我介绍 2min 版能磕绊说下来</p>
+<hr />
+<h3 id="day-2-10-04-周日-首批投递启动">Day 2｜10.04 周日｜首批投递启动 📮</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>自我介绍脱稿 + STAR 故事集初学</td>
+<td>🗣️ 2min 版脱稿录音 2 遍；读 <code>02-STAR</code> 项目1（报文比对）30 秒版+2 分钟版，圈出关键数字</td>
+</tr>
+<tr>
+<td>块B</td>
+<td><strong>首批预热投递 20-30 家</strong></td>
+<td>按 <code>05-投递台账</code> 第一梯队名单先投；每投 1 家登记 1 行（序号/公司/岗位/渠道/日期/状态）</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>📚 测试理论第一批</td>
+<td>T01-Q1~Q8（测试目的/调试区别/黑盒白盒灰盒/流程9步/用例要素/等价类/边界值/判定表）——每题看完【参考答案】默写关键词</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：投出 20-30 家、T01 前 8 题过关、项目1 故事能讲</p>
+<hr />
+<h3 id="day-3-10-05-周一-测试理论收口">Day 3｜10.05 周一｜测试理论收口</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>📚 测试理论第二批</td>
+<td>T01-Q9~Q18（场景法/错误推测/正交/登录框实操题/Bug生命周期/严重度优先级/前后端Bug区分/冒烟回归探索/无法复现Bug/开发不认同Bug）——重点背 Q12 实操题的完整用例集</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>加投 10 家 + 跟进昨日已读未回</td>
+<td>已读不回满 2 天的用 <code>05-投递台账</code> 第六章跟进话术</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>📚 测试理论第三批 + 自测</td>
+<td>T01-Q19~Q30（左移右移/时间紧/需求变更/Web vs APP/介入时机/测试计划/准入准出/测试报告/价值衡量/线上Bug责任/最重要能力/测试vs测开）；合上文件自测 10 题</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：题库01 全部 30 题过完一遍（不求全背，求能说 60%）</p>
+<hr />
+<h2 id="阶段-1-技术主攻-day4-6-10-06-10-08">阶段 1 · 技术主攻（Day4-6：10.06-10.08）</h2>
+<h3 id="day-4-10-06-周二-python-与-pytest-决战日">Day 4｜10.06 周二｜Python 与 pytest 决战日</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>📚 Python 基础 16 题</td>
+<td>T02-Q1~Q16——重点：Q2 深浅拷贝、Q8-10 三个手写装饰器（<strong>跟着敲一遍代码</strong>）、Q15 GIL 与并发选型</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>📚 pytest 11 题 + 加投 10 家</td>
+<td>T02-Q17~Q27——重点：Q19 fixture 四作用域、Q21 parametrize、Q25 token 依赖处理（代码照敲）；投递穿插在中间休息</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>📚 算法 8 题（动手写）</td>
+<td>T02-Q28~Q35——每题<strong>亲手写一遍</strong>再对答案；写不出的（快排/链表反转）标记，明早重写</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：T02 全 35 题过完、8 道算法能白板写出 5 道、装饰器能手写</p>
+<hr />
+<h3 id="day-5-10-07-周三-sql-linux-双线日-假期最后一天-明早开投高峰">Day 5｜10.07 周三｜SQL + Linux 双线日（假期最后一天，明早开投高峰）</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>📚 SQL 30 题</td>
+<td>T03-Q1~Q14（连接/分组/窗口函数三件套/索引原理/失效7场景/EXPLAIN/慢查询5步法）+ Q15~Q22（事务/隔离级别/锁/MySQL vs Oracle）——窗口函数必须动手跑一遍</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>📚 Linux/网络 30 题（快扫模式）</td>
+<td>T04-Q1~Q14（日志四板斧/进程/端口/磁盘/CPU飙高排查）+ Q21~Q30（三次握手四次挥手/状态码/GET POST/JWT/RESTful/Fiddler）——Q15~Q20 Docker/k8s 快读即可（你有实战，扫一遍激活记忆）</td>
+</tr>
+<tr>
+<td>块C</td>
+<td><strong>明日投递高峰准备</strong></td>
+<td>把 <code>05-投递台账</code> 三梯队公司池全部整理进待投清单（≥80 家备选）；检查简历附件；早睡</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：T03 全过、T04 全过（Docker/k8s 可略读）、明日弹药备好</p>
+<hr />
+<h3 id="day-6-10-08-周四-投递峰值日-自动化框架日">Day 6｜10.08 周四｜⚡ 投递峰值日 + 自动化框架日</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td><strong>📮 冲刺投递 50+ 家</strong>（今天 HR 集中处理假期堆积简历）</td>
+<td>按 <code>05-投递台账</code> 优先级：第一梯队金融乙方 → 第二梯队甲方 → 第三梯队；BOSS 逐个打招呼用定制话术；猎聘同步投</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>📚 自动化框架 25 题（上）</td>
+<td>T05-Q1~Q13——重点：Q2 自动化经验在哪一层（诚实话术背熟）、Q4 四层断言、Q7 框架分层、Q11 三种等待</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>📚 自动化框架（下）+ 性能开个头</td>
+<td>T05-Q14~Q25——重点：Q16 ROI 计算、Q21 报文比对（开始背第三部分逐字稿）、Q25 从0搭框架；时间有富余看 T06-Q1~Q5</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：<strong>累计投递 80-100 家</strong>、T05 全过、报文比对逐字稿开背</p>
+<hr />
+<h2 id="阶段-2-项目深挖-话术-day7-9-10-09-10-11">阶段 2 · 项目深挖 + 话术（Day7-9：10.09-10.11）</h2>
+<h3 id="day-7-10-09-周五-项目深挖日-面试邀约可能开始出现">Day 7｜10.09 周五｜项目深挖日（面试邀约可能开始出现）</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>📚 项目深挖 15 题（上）</td>
+<td>T07-Q1~Q8——重点：Q1 最得意项目双版本、Q5 白盒定位案例（逐字稿级别背）、Q6 事故拦截完整讲、Q8 数字口径推算（<strong>必须能口算给面试官听</strong>）</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>📚 项目深挖 15 题（下）</td>
+<td>T07-Q9~Q15——重点：Q9 FastAPI 选型、Q10 JWT+RBAC、Q12 自动部署拆解、Q15 离职原因+空窗期（<strong>和 04 话术互相对照，口径统一</strong>）</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>🗣️ STAR 逐字稿练习 + 加投 15 家</td>
+<td>02-STAR 四大项目各口述 1 遍录音；量化口径部分对着 <code>02-STAR</code> 第二章练"被质疑"应对；投递跟进</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：T07 全过、四大项目故事+口径全部能脱稿、累计投递 100-115 家</p>
+<hr />
+<h3 id="day-8-10-10-周六-调休上班日-再投-30-家-hr-话术日">Day 8｜10.10 周六｜⚡ 调休上班日：再投 30 家 + HR 话术日</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td><strong>📮 再投 30 家 + 全面跟进</strong>（调休日 HR 在岗，别漏）</td>
+<td>优先投给已读未回的二次触达；新公司 30 家；更新 <code>05-投递台账</code> 看板统计</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>📖 HR 话术全章</td>
+<td><code>04-HR面话术与谈薪</code>：离职原因 3 变体 + 空窗期标准答案 + 5 追问变体——<strong>全部开口说 3 遍</strong>；谈薪五步脚本读熟，被压价 5 应对理解逻辑</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>📚 全题库串讲自测（第一轮）</td>
+<td>T01/T02 各抽 5 题、T03/T04 各抽 5 题、T05/T06 各抽 5 题——合上文件说答案，录音回听；错的标记进明早复习</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：<strong>累计投递 130-145 家</strong>、HR 话术能脱口、第一轮串讲完成</p>
+<hr />
+<h3 id="day-9-10-11-周日-模拟面试日">Day 9｜10.11 周日｜模拟面试日</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>具体到题号/产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td><strong>🗣️ 模拟面试 1（自我介绍 + 项目拷问）</strong></td>
+<td>找朋友/家人或对着 AI（WorkBuddy/Claude）当面试官：自我介绍 2min → 追问项目细节 20min → 复盘卡壳点；卡壳题回到 T07 对应题重背</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>📚 AI 认知 10 题（差异化武器）</td>
+<td>T07-AI-Q1~Q10——重点：Q1 Claude Code 提效实例（准备 2 个具体例子带数据）、Q3 大模型应用怎么测、Q9 AI 与测试关系观点题</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>复盘修正 + 📚 性能收尾 + 加投</td>
+<td>上午模拟暴露问题全部修复；T06-Q6~Q20 扫尾（重点 Q13 瓶颈定位链路、Q19 RT 涨到 2s 排查）；晚间加投 10-15 家</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>今日产出</strong>：完成 1 场完整模拟面试、AI 认知 10 题过关、T06 全过、累计投递 145-160 家</p>
+<hr />
+<h2 id="阶段-3-实战-day10-13-10-12-10-15">阶段 3 · 实战（Day10-13：10.12-10.15）</h2>
+<h3 id="day-10-10-12-周一-实战启动日-面试邀约高发期开始">Day 10｜10.12 周一｜实战启动日（面试邀约高发期开始）</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+<th>分支</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td><strong>分支①：有面试</strong> → 按邀约时间参战，面后 30 分钟填 <code>06-复盘</code>；<strong>分支②：无面试</strong> → 🗣️ 模拟面试 2（技术题快问快答：T01-T06 各抽 3 题限时答）+ <strong>启动 Plan B</strong>（优化打招呼话术/激活猎头/加内推群/日投提至 50 家）</td>
+<td>两个分支都要：面试前夜 checklist 见 <code>06-复盘</code> 第四章</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>复盘/针对性补漏</td>
+<td>把模拟和实战暴露的 3 个最大短板针对性重学（回题库对应题）</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>夜间加投 + 话术迭代</td>
+<td>根据已收到的面试反馈微调自我介绍和打招呼话术</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="day-11-10-13-周二-实战迭代">Day 11｜10.13 周二｜实战迭代</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>面试实战 / 无面试则 T07 拷问对照表自查（简历逐条被追问预演）</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>面试复盘 + 短板专项（昨天哪个模块被问倒就重攻哪个题库）</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>加投 15-30 家 + 跟进所有"已面"状态（要 feedback：<code>06-复盘</code> 第五章话术）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="day-12-10-14-周三-实战迭代">Day 12｜10.14 周三｜实战迭代</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>面试实战 / 无面试则算法 8 题重写（Day4 标记的 + 快排/链表反转必过关）</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>长尾投递（二梯队补漏 + 猎头沟通） + 面试复盘</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>题库终扫：所有标记"未掌握"的题最后清零行动</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="day-13-10-15-周四-阶段收束">Day 13｜10.15 周四｜阶段收束</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块A</td>
+<td>面试复盘总表（<code>06-复盘</code> 第二章横向汇总：高频重复题 → 这是下一阶段的重点清单）</td>
+</tr>
+<tr>
+<td>块B</td>
+<td>阶段总结：投递漏斗数据（投/读/面/挂比）、有效渠道、薪资谈判信息收集；制定 10.16-10.31 下阶段计划</td>
+</tr>
+<tr>
+<td>块C</td>
+<td>心态调整 + 持续投递节奏确认（面试是概率游戏，13 天只是第一波）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="附-投递量目标追踪">附：投递量目标追踪</h2>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>里程碑</th>
+<th>日期</th>
+<th>累计目标</th>
+<th>实际</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首批预热</td>
+<td>10.04</td>
+<td>20-30</td>
+<td>___</td>
+</tr>
+<tr>
+<td>节后峰值</td>
+<td>10.08</td>
+<td>80-100</td>
+<td>___</td>
+</tr>
+<tr>
+<td>调休冲量</td>
+<td>10.10</td>
+<td>130-145</td>
+<td>___</td>
+</tr>
+<tr>
+<td>周末维护</td>
+<td>10.11</td>
+<td>145-160</td>
+<td>___</td>
+</tr>
+<tr>
+<td>阶段收束</td>
+<td>10.15</td>
+<td><strong>150-200</strong></td>
+<td>___</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="附-每日打卡速查">附：每日打卡速查</h2>
+<ul>
+<li>☐ Day1 简历定稿 + 账号就绪 + 自我介绍首背</li>
+<li>☐ Day2 首投 20-30 家 + T01 前 8 题</li>
+<li>☐ Day3 T01 全过 + 加投</li>
+<li>☐ Day4 T02 全过 + 算法上手</li>
+<li>☐ Day5 T03/T04 过完 + 备弹 80 家</li>
+<li>☐ Day6 <strong>冲投 50+</strong> + T05 过完</li>
+<li>☐ Day7 T07 过完 + STAR 脱稿</li>
+<li>☐ Day8 <strong>再投 30</strong> + HR 话术 + 一轮串讲</li>
+<li>☐ Day9 模拟面试 + AI 认知 + T06 收尾</li>
+<li>☐ Day10 实战/Plan B</li>
+<li>☐ Day11 实战迭代</li>
+<li>☐ Day12 实战迭代 + 题库终扫</li>
+<li>☐ Day13 阶段收束</li>
+</ul></main>
+</div>
+<footer class="foot">求职驾驶舱 · 尹胜 · 测试开发冲刺 2026.10 ｜ <a href="index.html">返回仪表盘</a></footer>
+</body>
+</html>

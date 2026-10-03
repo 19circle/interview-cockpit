@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社招自我介绍与求职策略（尹胜） · 求职驾驶舱</title>
+<meta name="description" content="尹胜 · 测试开发工程师社招面试准备材料">
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1d2638; --line:#2a3550; --line2:#232d44;
+  --txt:#e8edf7; --sub:#93a1bd; --dim:#5b6a8a;
+  --gold:#e8b04b; --green:#4ec98a; --blue:#5b9cf5; --red:#e05d5d; --teal:#45c4b0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Segoe UI","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+  font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:"Cascadia Code",Consolas,"Courier New",monospace}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+  background:rgba(23,30,46,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:11px 22px;flex-wrap:wrap}
+.topbar .back{font-size:13.5px;font-weight:600;background:var(--panel2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:8px;white-space:nowrap}
+.topbar .back:hover{border-color:var(--gold);text-decoration:none}
+.topbar .crumb{flex:1;font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:120px}
+.topbar .raw{font-size:12.5px;color:var(--dim);border:1px solid var(--line);padding:4px 11px;border-radius:8px;white-space:nowrap}
+.topbar .raw:hover{color:var(--gold);border-color:var(--gold);text-decoration:none}
+
+.shell{max-width:1220px;margin:0 auto;padding:22px 22px 70px;display:grid;
+  grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:940px){.shell{grid-template-columns:1fr;gap:14px;padding:14px 13px 50px}}
+
+.toc{position:sticky;top:74px;max-height:calc(100vh - 96px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.toc-title{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:9px;font-weight:700}
+.toc ul{list-style:none;padding-left:0}
+.toc li{margin:1px 0}
+.toc a{color:var(--sub);display:block;padding:3px 0;line-height:1.5;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{color:var(--gold);text-decoration:none}
+.toc ul ul{padding-left:10px}
+.toc ul ul a{font-size:12.3px;color:var(--dim)}
+@media(max-width:940px){.toc{position:static;max-height:none;border-radius:10px}
+  .toc ul{max-height:230px;overflow:auto}}
+
+.content{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:30px 36px 40px;min-width:0;overflow-wrap:break-word}
+@media(max-width:940px){.content{padding:20px 17px 30px;font-size:14.5px}}
+.content>*:first-child{margin-top:0}
+.content h1{font-size:25px;color:var(--gold);padding-bottom:12px;border-bottom:2px solid var(--line);
+  margin:6px 0 20px;line-height:1.4}
+.content h2{font-size:19.5px;margin:34px 0 13px;padding-left:12px;border-left:4px solid var(--gold);line-height:1.45}
+.content h3{font-size:16.5px;margin:24px 0 9px;color:var(--blue)}
+.content h4{font-size:15px;margin:18px 0 7px;color:var(--teal)}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0 10px 4px;padding-left:22px}
+.content li{margin:5px 0}
+.content strong{color:#fff;font-weight:700}
+.content em{color:var(--gold);font-style:normal}
+.content hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.content blockquote{margin:14px 0;padding:10px 17px;background:rgba(232,176,75,.06);
+  border-left:3px solid var(--gold);border-radius:0 8px 8px 0;color:var(--sub)}
+.content blockquote p{margin:5px 0}
+
+.content code:not(.codehilite code){background:var(--panel2);color:var(--gold);
+  padding:1.5px 6px;border-radius:5px;font-size:13.2px;border:1px solid var(--line)}
+
+.codehilite{background:#12172a;border:1px solid var(--line);border-radius:10px;
+  margin:14px 0;overflow:auto;font-size:13.2px;line-height:1.65}
+.codehilite pre{margin:0;padding:14px 17px;background:transparent!important}
+.content pre:not(.codehilite pre){background:#12172a;border:1px solid var(--line);border-radius:10px;
+  padding:14px 17px;overflow:auto;font-size:13.2px;margin:14px 0}
+
+.content table{border-collapse:collapse;margin:15px 0;font-size:13.6px;width:100%}
+.content thead th{background:var(--panel2);color:var(--txt);font-weight:700;text-align:left;
+  padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+.content tbody td{padding:8px 12px;border:1px solid var(--line2);vertical-align:top}
+.content tbody tr:nth-child(even){background:rgba(255,255,255,.017)}
+.content tbody tr:hover{background:rgba(232,176,75,.05)}
+.tblwrap{overflow-x:auto;margin:15px 0}
+
+.foot{max-width:1220px;margin:0 auto;padding:0 22px 40px;color:var(--dim);font-size:12.3px;text-align:center}
+@media(max-width:940px){.foot{padding:0 13px 30px}}
+
+/* pygments */
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #F8F8F2 }
+.codehilite .c { color: #959077 } /* Comment */
+.codehilite .err { color: #ED007E; background-color: #1E0010 } /* Error */
+.codehilite .esc { color: #F8F8F2 } /* Escape */
+.codehilite .g { color: #F8F8F2 } /* Generic */
+.codehilite .k { color: #66D9EF } /* Keyword */
+.codehilite .l { color: #AE81FF } /* Literal */
+.codehilite .n { color: #F8F8F2 } /* Name */
+.codehilite .o { color: #FF4689 } /* Operator */
+.codehilite .x { color: #F8F8F2 } /* Other */
+.codehilite .p { color: #F8F8F2 } /* Punctuation */
+.codehilite .ch { color: #959077 } /* Comment.Hashbang */
+.codehilite .cm { color: #959077 } /* Comment.Multiline */
+.codehilite .cp { color: #959077 } /* Comment.Preproc */
+.codehilite .cpf { color: #959077 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #959077 } /* Comment.Single */
+.codehilite .cs { color: #959077 } /* Comment.Special */
+.codehilite .gd { color: #FF4689 } /* Generic.Deleted */
+.codehilite .ge { color: #F8F8F2; font-style: italic } /* Generic.Emph */
+.codehilite .ges { color: #F8F8F2; font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #FF4689 } /* Generic.Error */
+.codehilite .gh { color: #F8F8F2 } /* Generic.Heading */
+.codehilite .gi { color: #A6E22E } /* Generic.Inserted */
+.codehilite .go { color: #66D9EF } /* Generic.Output */
+.codehilite .gp { color: #FF4689; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #F8F8F2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #959077 } /* Generic.Subheading */
+.codehilite .gt { color: #66D9EF } /* Generic.Traceback */
+.codehilite .kc { color: #66D9EF } /* Keyword.Constant */
+.codehilite .kd { color: #66D9EF } /* Keyword.Declaration */
+.codehilite .kn { color: #FF4689 } /* Keyword.Namespace */
+.codehilite .kp { color: #66D9EF } /* Keyword.Pseudo */
+.codehilite .kr { color: #66D9EF } /* Keyword.Reserved */
+.codehilite .kt { color: #66D9EF } /* Keyword.Type */
+.codehilite .ld { color: #E6DB74 } /* Literal.Date */
+.codehilite .m { color: #AE81FF } /* Literal.Number */
+.codehilite .s { color: #E6DB74 } /* Literal.String */
+.codehilite .na { color: #A6E22E } /* Name.Attribute */
+.codehilite .nb { color: #A6E22E } /* Name.Builtin */
+.codehilite .nc { color: #A6E22E } /* Name.Class */
+.codehilite .no { color: #66D9EF } /* Name.Constant */
+.codehilite .nd { color: #A6E22E } /* Name.Decorator */
+.codehilite .ni { color: #F8F8F2 } /* Name.Entity */
+.codehilite .ne { color: #A6E22E } /* Name.Exception */
+.codehilite .nf { color: #A6E22E } /* Name.Function */
+.codehilite .nl { color: #F8F8F2 } /* Name.Label */
+.codehilite .nn { color: #F8F8F2 } /* Name.Namespace */
+.codehilite .nx { color: #A6E22E } /* Name.Other */
+.codehilite .py { color: #F8F8F2 } /* Name.Property */
+.codehilite .nt { color: #FF4689 } /* Name.Tag */
+.codehilite .nv { color: #F8F8F2 } /* Name.Variable */
+.codehilite .ow { color: #FF4689 } /* Operator.Word */
+.codehilite .pm { color: #F8F8F2 } /* Punctuation.Marker */
+.codehilite .w { color: #F8F8F2 } /* Text.Whitespace */
+.codehilite .mb { color: #AE81FF } /* Literal.Number.Bin */
+.codehilite .mf { color: #AE81FF } /* Literal.Number.Float */
+.codehilite .mh { color: #AE81FF } /* Literal.Number.Hex */
+.codehilite .mi { color: #AE81FF } /* Literal.Number.Integer */
+.codehilite .mo { color: #AE81FF } /* Literal.Number.Oct */
+.codehilite .sa { color: #E6DB74 } /* Literal.String.Affix */
+.codehilite .sb { color: #E6DB74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #E6DB74 } /* Literal.String.Char */
+.codehilite .dl { color: #E6DB74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #E6DB74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #E6DB74 } /* Literal.String.Double */
+.codehilite .se { color: #AE81FF } /* Literal.String.Escape */
+.codehilite .sh { color: #E6DB74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #E6DB74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #E6DB74 } /* Literal.String.Other */
+.codehilite .sr { color: #E6DB74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #E6DB74 } /* Literal.String.Single */
+.codehilite .ss { color: #E6DB74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #A6E22E } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #A6E22E } /* Name.Function.Magic */
+.codehilite .vc { color: #F8F8F2 } /* Name.Variable.Class */
+.codehilite .vg { color: #F8F8F2 } /* Name.Variable.Global */
+.codehilite .vi { color: #F8F8F2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #F8F8F2 } /* Name.Variable.Magic */
+.codehilite .il { color: #AE81FF } /* Literal.Number.Integer.Long */</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="index.html">← 驾驶舱</a>
+  <span class="crumb">社招自我介绍与求职策略（尹胜）</span>
+  <a class="raw" href="社招自我介绍与求职策略-尹胜.md">原始 Markdown</a>
+</header>
+<div class="shell">
+  <aside class="toc"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#社招自我介绍与求职策略-尹胜">社招自我介绍与求职策略（尹胜）</a><ul>
+<li><a href="#一-先诊断-现在这版为什么不能用了">一、先诊断：现在这版为什么不能用了</a></li>
+<li><a href="#二-社招稿的三段结构">二、社招稿的三段结构</a></li>
+<li><a href="#三-可直接背的稿子">三、可直接背的稿子</a><ul>
+<li><a href="#版本-a-标准版-约-2-分钟-技术面用">版本 A｜标准版（约 2 分钟，技术面用）</a></li>
+<li><a href="#版本-b-精简版-约-1-分钟-二面-交叉面-时间紧时用">版本 B｜精简版（约 1 分钟，二面/交叉面/时间紧时用）</a></li>
+<li><a href="#版本-c-30-秒版-hr-电话初筛用">版本 C｜30 秒版（HR 电话初筛用）</a></li>
+</ul>
+</li>
+<li><a href="#四-软素质不是删掉-是换位置">四、软素质不是删掉，是换位置</a></li>
+<li><a href="#五-自我介绍之后-面试官一定会追的-5-个问题">五、自我介绍之后，面试官一定会追的 5 个问题</a></li>
+<li><a href="#六-现在重新找工作的动作清单">六、现在重新找工作的动作清单</a><ul>
+<li><a href="#1-先定方向-别把自己投成-功能测试">1. 先定方向，别把自己投成"功能测试"</a></li>
+<li><a href="#2-目标公司分层">2. 目标公司分层</a></li>
+<li><a href="#3-渠道优先级">3. 渠道优先级</a></li>
+<li><a href="#4-简历要改的两个地方">4. 简历要改的两个地方</a></li>
+<li><a href="#5-谈薪节奏">5. 谈薪节奏</a></li>
+</ul>
+</li>
+<li><a href="#七-一句话记住">七、一句话记住</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+  <main class="content"><h1 id="社招自我介绍与求职策略-尹胜">社招自我介绍与求职策略（尹胜）</h1>
+<blockquote>
+<p>适用场景：近 4 年经验社招，目标方向 测试开发 / 测试工程师<br />
+核心结论：你的简历素材是"测试开发"级别的，但你的自我介绍还是"校招"级别的。要换稿，不是改词。</p>
+</blockquote>
+<hr />
+<h2 id="一-先诊断-现在这版为什么不能用了">一、先诊断：现在这版为什么不能用了</h2>
+<p>原稿：</p>
+<blockquote>
+<p>面试官你好，我叫尹胜，来自湖南邵东，中共党员，22届武昌首义学院软件工程专业……有一定的自我控制能力……一周运动3-5次，完成过28公里赛事以及线上半马……我擅长沟通，因为在大学担任班长……我经历过考研……虽然我就读一所普通的大学……</p>
+</blockquote>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>具体表现</th>
+<th>面试官的实际感受</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位错位</td>
+<td>开篇是姓名/籍贯/党员/学校</td>
+<td>"这人还没从校园里出来"</td>
+</tr>
+<tr>
+<td>主次颠倒</td>
+<td>约 70% 篇幅讲软素质，0 个数字</td>
+<td>"4 年工作经验，能拿出来的东西就这些？"</td>
+</tr>
+<tr>
+<td>素材过期</td>
+<td>跑步、半马、班长、考研</td>
+<td>"他是在用生活素材替代工作成果"</td>
+</tr>
+<tr>
+<td>主动示弱</td>
+<td>"有一定的……"、"虽然我就读一所普通的大学"</td>
+<td>你自己先降价，面试官就会按低价收</td>
+</tr>
+<tr>
+<td>最致命的遗漏</td>
+<td>简历上最强的三个数字一个都没提</td>
+<td>40+ 银行渠道、2人天→0.5人天、3分钟→10秒、1900+ 用例全部沉没</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>校招 vs 社招的底层差别：</strong></p>
+<ul>
+<li>校招要证明「我能学会」→ 所以讲学习能力、抗压、沟通，讲学校。</li>
+<li>社招要证明「我已经交付过什么、能马上上手干什么」→ 只讲经验、成果、数字、匹配度。</li>
+</ul>
+<p>一句话：<strong>你不是要证明自己是个好学生，是要证明自己是个能干活的人。</strong></p>
+<hr />
+<h2 id="二-社招稿的三段结构">二、社招稿的三段结构</h2>
+<div class="codehilite"><pre><span></span><code>① 定位自己（15%，约20秒）→ ② 三件硬成果（65%，约90秒）→ ③ 动机与匹配（20%，约30秒）
+</code></pre></div>
+
+<ul>
+<li><strong>第①段</strong>：年限 + 方向 + 业务域。一句话让面试官知道你是谁、在哪个赛道。</li>
+<li><strong>第②段</strong>：只挑三件，每件必须带数字或具体后果。不要讲流程（"我负责编写用例"），要讲结果（"我把 2 人天压到 0.5 人天"）。</li>
+<li><strong>第③段</strong>：为什么看机会 + 为什么是这家。这一段决定面试官觉得你"随便投"还是"有备而来"。</li>
+</ul>
+<hr />
+<h2 id="三-可直接背的稿子">三、可直接背的稿子</h2>
+<h3 id="版本-a-标准版-约-2-分钟-技术面用">版本 A｜标准版（约 2 分钟，技术面用）</h3>
+<blockquote>
+<p>面试官您好，我叫尹胜。我 2022 年 11 月入职浙江保融科技，做测试工程师到现在接近 4 年，一直在金融科技这条线上，主要负责资金管理和银企直联两个产品，服务过 40 多家保险、基金类的金融机构客户，对接过 40 多家银行渠道。</p>
+<p>我挑三件最能说明我能力的事说一下。</p>
+<p>第一件是提效。银企直联的渠道回归，原来一轮纯靠人工比对报文，大概要 2 个人天。我推动了报文比对的自动化落地——把日志回放到比对平台、配置忽略节点、调优比对规则，现在单轮回归压到 0.5 个人天左右。另外我还参与了自动部署模块的开发，单渠道部署从 3 分钟左右降到 10 秒左右。</p>
+<p>第二件是拦截风险。上线前我发现某家银行渠道交互的关键节点名称配错了，这个如果漏到生产，客户的批量支付会直接失败。后来我把渠道上线前的配置核对固定成了一个必做动作。</p>
+<p>第三件是写工具的能力。团队的环境信息原来散在各处，我用 FastAPI + Vue3 + MySQL 独立做了个环境信息模块，包含增删改查、分页查询、Excel 批量导入和 JWT 权限控制，上线一年多，7 条产品线、20 多人在用。日常我也能读 Java 代码做白盒定位，沿 Controller / Service / Mapper 层找缺陷根因，SQL 逐笔校验和 Linux、k8s 日志排查是常规手段。</p>
+<p>我这次看机会，主要是想往测试开发方向再走一步。贵司这个岗位在【填岗位对应的点，比如"银企直联/资金结算测试"或"自动化平台建设"】上，跟我这几年做的事情比较对口，所以想来聊一聊。</p>
+</blockquote>
+<h3 id="版本-b-精简版-约-1-分钟-二面-交叉面-时间紧时用">版本 B｜精简版（约 1 分钟，二面/交叉面/时间紧时用）</h3>
+<blockquote>
+<p>面试官您好，我叫尹胜，近 4 年金融科技测试经验，在浙江保融负责资金管理和银企直联两条产品线，服务 40 多家金融机构、对接 40 多家银行渠道。</p>
+<p>三句话概括我：一是能提效，推动报文比对自动化，渠道单轮回归从 2 人天降到 0.5 人天，参与自动部署模块把单渠道部署从 3 分钟降到 10 秒；二是能兜底，上线前定位过银行交互关键节点配置错误，避免客户批量支付失败；三是能自己写工具，独立用 FastAPI + Vue3 开发环境信息模块，上线一年多、20 多人使用，同时能读 Java 代码做白盒定位。</p>
+<p>我想找的是测试开发方向的机会，把自动化平台和渠道测试这块继续做深。</p>
+</blockquote>
+<h3 id="版本-c-30-秒版-hr-电话初筛用">版本 C｜30 秒版（HR 电话初筛用）</h3>
+<blockquote>
+<p>您好，我叫尹胜，近 4 年金融科技测试经验，在浙江保融负责资金管理和银企直联，对接过 40 多家银行渠道，主导过渠道回归自动化和自动部署，也独立做过全栈测试工具。现在想看测试开发方向的机会，方便的话想了解下岗位的具体职责。</p>
+</blockquote>
+<hr />
+<h2 id="四-软素质不是删掉-是换位置">四、软素质不是删掉，是换位置</h2>
+<p>社招里"抗压/沟通/学习能力"是<strong>默认项</strong>，不是加分项。单独说 = 减分；挂在工作场景里说 = 加分。</p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>你原来的说法</th>
+<th>换成工作场景的证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>抗压能力强（考研 / 一周运动 3-5 次）</td>
+<td>参与约 6 个月客户现场支持，保障多个版本在客户现场顺利上线</td>
+</tr>
+<tr>
+<td>沟通能力强（大学当班长）</td>
+<td>面向寿险 / 财险 / 基金客户做现场 UAT，和 40 多家银行渠道方联调对接</td>
+</tr>
+<tr>
+<td>学习能力强（虽然学校普通）</td>
+<td>在没做过前端的情况下，独立用 FastAPI + Vue3 交付全栈模块并稳定运行 1 年+</td>
+</tr>
+<tr>
+<td>自我控制能力 / 抗压</td>
+<td>维护 1900+ 条核心回归用例，长期支撑版本回归与生产复测</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>原则：用工作场景证明，不用生活场景证明。</strong></p>
+<p>跑步、半马、28 公里这些素材不用扔——面试官问"业余时间做什么"的时候再说，那时候是加分，还能顺带体现长期自律。放在自我介绍里是减分。</p>
+<p>考研同理：社招提考研，只会让人觉得你还在用应届生的方式讲故事。</p>
+<hr />
+<h2 id="五-自我介绍之后-面试官一定会追的-5-个问题">五、自我介绍之后，面试官一定会追的 5 个问题</h2>
+<p>自我介绍的作用不是拿分，是<strong>引导面试官问你准备好的问题</strong>。上面每句话都埋了钩子，你要提前把答案准备好：</p>
+<ol>
+<li><strong>报文比对的自动化具体怎么做的？忽略节点怎么定？</strong><br />
+   → 讲清：日志回放链路 → 比对规则设计 → 哪些节点必须忽略（时间戳、流水号、随机数）→ 怎么避免漏报。</li>
+<li><strong>"2 人天降到 0.5 人天"这个数是怎么算出来的？</strong><br />
+   → 必须有算法口径：多少人、跑几轮、每轮多少条渠道、人工单条比对耗时。算不清的数会被当成编的。</li>
+<li><strong>白盒定位举一个具体例子。</strong><br />
+   → 用 STAR：什么现象 → 看日志/SQL 排除了什么 → 读到哪一层代码 → 根因是什么 → 怎么验证修复。</li>
+<li><strong>环境信息模块为什么选 FastAPI，不用 Django / Flask？</strong><br />
+   → 讲技术选型的思考，别只说"我会用"。这是你唯一一个完整交付的开发项目，会被问穿。</li>
+<li><strong>为什么现在想看新机会？</strong><br />
+   → 不要抱怨公司。往"方向"上答：想在测试开发/自动化平台上做得更深，原岗位天花板在哪。</li>
+</ol>
+<hr />
+<h2 id="六-现在重新找工作的动作清单">六、现在重新找工作的动作清单</h2>
+<h3 id="1-先定方向-别把自己投成-功能测试">1. 先定方向，别把自己投成"功能测试"</h3>
+<p>你的简历已经天然是<strong>测试开发</strong>画像：自研工具 + 全栈交付 + 白盒定位 + 自动化平台维护。<br />
+投递时岗位名优先选：测试开发工程师 / 测试工程师（自动化方向）。不要投"功能测试"——同样的经历，投错岗位薪资差一档。</p>
+<h3 id="2-目标公司分层">2. 目标公司分层</h3>
+<ul>
+<li><strong>第一梯队（对口度最高）</strong>：金融科技乙方——恒生电子、宇信科技、长亮科技、神州信息、中电金信、科蓝软件。你的资金管理 + 银企直联经验在这类公司是硬通货。</li>
+<li><strong>第二梯队</strong>：甲方金融科技——银行系科技子公司、保险/基金/券商的 IT 部门。</li>
+<li><strong>第三梯队</strong>：有自动化平台建设需求的中大型互联网公司。你的 FastAPI + Vue3 全栈能力在这类岗位是差异化优势。</li>
+</ul>
+<h3 id="3-渠道优先级">3. 渠道优先级</h3>
+<p>内推 &gt; 猎聘 / 脉脉（4 年经验猎头会接）&gt; BOSS 直聘 &gt; 招聘网站海投。<br />
+金融科技圈子小，前同事内推的成功率远高于海投，先把你保融的同事关系盘一遍。</p>
+<h3 id="4-简历要改的两个地方">4. 简历要改的两个地方</h3>
+<ul>
+<li><strong>时间口径不一致</strong>：工作经历写"2022.11 - 至今"，但项目经历写到"2026.04 / 2026.05"。面试官一定会问"你是离职了还是在职"。建议统一口径，别让人猜。</li>
+<li><strong>加一行求职意向</strong>：<code>求职意向：测试开发工程师 / 期望城市：XX</code>。社招简历没有求职意向，HR 初筛会犹豫。</li>
+</ul>
+<h3 id="5-谈薪节奏">5. 谈薪节奏</h3>
+<p>先问岗位职级区间，再报期望。用"当前总包 + 合理涨幅"做锚点，不要先甩数字。金融科技测试岗 4 年经验，跳槽合理涨幅区间一般是 20%-35%，具体看城市和公司性质。</p>
+<hr />
+<h2 id="七-一句话记住">七、一句话记住</h2>
+<blockquote>
+<p>面试官不需要知道你是个好人，需要知道你能替他解决什么问题。<br />
+把你简历上那三个数字讲透，比讲十遍"我抗压能力强"有用。</p>
+</blockquote></main>
+</div>
+<footer class="foot">求职驾驶舱 · 尹胜 · 测试开发冲刺 2026.10 ｜ <a href="index.html">返回仪表盘</a></footer>
+</body>
+</html>
